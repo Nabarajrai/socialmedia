@@ -2,20 +2,28 @@
 @use "../helpers/_mixin" as *;
 @use "../layout/_grid" as *;
 
+.home-page-setion{
+  background-color: rgba($bgcolor,  0.3);
+}
 .home-page {
   @include flex($justify: space-between);
+  align-items: flex-start;
+  gap: 2rem;
   width: 100%;
   padding: 1rem 0px;
 }
 .sidebar-left {
-  background-color: red;
   flex-basis: 25%;
 }
 .main-content {
-  background-color: rebeccapurple;
   flex-basis: 55%;
+  background-color: $pri;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  border-radius: 5px;
+  margin-top: 1.5rem;
+  height: auto;
 }
 .sidebar-right {
-  background-color: aquamarine;
   flex-basis: 23%;
+  margin-top: 1.5rem;
 }
