@@ -1,0 +1,21 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.home-page {
+  @include flex($justify: space-between);
+  width: 100%;
+  padding: 1rem 0px;
+}
+.sidebar-left {
+  background-color: red;
+  flex-basis: 25%;
+}
+.main-content {
+  background-color: rebeccapurple;
+  flex-basis: 55%;
+}
+.sidebar-right {
+  background-color: aquamarine;
+  flex-basis: 23%;
+}

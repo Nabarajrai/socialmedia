@@ -1,11 +1,14 @@
 import LayoutComponent from "../../layout/Layout.component";
+import "../../styles/pages/_home.scss";
 const HomePage = () => {
   return (
-    <div className="home-page">
-      <LayoutComponent>
-        <h2>Home page</h2>
-      </LayoutComponent>
-    </div>
+    <LayoutComponent>
+      <div className="home-page">
+        <div className="sidebar-left">left side bar</div>
+        <div className="main-content">main</div>
+        <div className="sidebar-right">righ bar</div>
+      </div>
+    </LayoutComponent>
   );
 };
 
