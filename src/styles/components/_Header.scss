@@ -1,0 +1,70 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.header-wrapper {
+  padding: 0.5rem;
+  box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px,
+    rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+  width: 100%;
+  nav {
+    @include flex($justify: space-between);
+  }
+}
+.header-right {
+  @include flex($justify: flex-start);
+  gap: 1.5rem;
+  .header-logo {
+    font-size: 0.8rem;
+  }
+  &__icons {
+    @include flex($justify: flex-start);
+    gap: 1.5rem;
+    &--home {
+      cursor: pointer;
+    }
+    &--app {
+      cursor: pointer;
+    }
+  }
+  &__input {
+    width: 264px;
+  }
+}
+.header-left {
+  &__icons {
+    @include flex($justify: flex-start);
+    gap: 1.5rem;
+    &--profile {
+      @include flex($justify: flex-start);
+      gap: 1.5rem;
+      height: 1.5rem;
+      width: 1.5rem;
+      img {
+        @include image();
+        border-radius: 50%;
+      }
+    }
+    &--name {
+      font-size: 0.8rem;
+    }
+    &--notification {
+      @include image();
+      cursor: pointer;
+    }
+    &--email {
+      cursor: pointer;
+      @include image();
+    }
+    &--avatar {
+      cursor: pointer;
+      @include image();
+    }
+  }
+
+  &__avator {
+    @include flex($justify: flex-start);
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+}
