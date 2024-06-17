@@ -17,6 +17,8 @@
 .main-content {
   flex-basis: 55%;
   background-color: $pri;
+  max-width: 600px;
+  margin: 0 auto;
   // box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   border-radius: 5px;
   margin-top: 1.5rem;

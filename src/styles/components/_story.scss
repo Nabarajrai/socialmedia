@@ -11,7 +11,6 @@
   max-width: 130px;
   border-radius: 10px;
   cursor: pointer;
-  overflow: hidden;
   transition: all 0.45s ease;
   &:hover::before {
     content: "";
@@ -20,7 +19,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    max-width: 130px;
+    width: 100%;
     height: 100%;
     background-color: rgba($pri, 0.3);
     z-index: 1;
@@ -28,10 +27,13 @@
   }
   &:hover .story-section-reels__img img {
     transform: scale(1.1);
+    border-radius: 10px;
   }
   &__img {
     height: 190px;
     width: 130px;
+    overflow: hidden;
+    border-radius: 10px;
     img {
       @include image();
       border-radius: 10px;
@@ -51,4 +53,32 @@
 .story-section {
   @include flex($justify: flex-start);
   gap: 0.5rem;
+  width: 100%;
+  overflow: auto;
+}
+
+.story-container {
+  position: relative;
+}
+.story-top-bar {
+  @include flex($justify: space-between);
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  z-index: 10;
+}
+.action-button--horizontal-scroll {
+  @include flex($justify: center);
+  background-color: $pri;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.prev {
+  transform: rotate(-90deg);
+}
+.next {
+  transform: rotate(90deg);
 }
