@@ -1,85 +1,84 @@
-@use "../helpers/_mixin" as * ;
-@use "../helpers/_variables" as * ;
-@use "../layout/_grid" as * ;
+@use "../helpers/_mixin" as *;
+@use "../helpers/_variables" as *;
+@use "../layout/_grid" as *;
 
-.top-sidebar-left{
-    // @include flex($justify: flex-start);
-    // flex-direction: column;
-    // gap: 1rem;
-    margin: 0.5rem 0;
-    border-bottom: 2px solid rgba($sec, 0.2);
-    &__profile{
-        @include flex($justify: flex-start);
-        gap: 0.7rem;
-        margin: 1.2rem 0px;
-        cursor: pointer;
-    
-        &--image{
-            height: 1.5rem;
-            width: 1.5rem;
-            img{
-                @include image();
-                border-radius: 50%;
-            }
-        }
-        &--details{
-            font-size: 0.8rem;
-        }
-    }
-}
-.middle-sidebar-left{
-    margin: 0.5rem 0;
-    border-bottom: 2px solid rgba($sec, 0.2);
-   
-    &__title{
-        font-size: 0.8rem;
-        text-transform: capitalize;
-        cursor: pointer;
-    }
+.top-sidebar-left {
+  // @include flex($justify: flex-start);
+  // flex-direction: column;
+  // gap: 1rem;
+  margin: 0.5rem 0;
+  border-bottom: 1px solid rgba($sec, 0.2);
+  &__profile {
+    @include flex($justify: flex-start);
+    gap: 0.7rem;
+    margin: 1.2rem 0px;
+    cursor: pointer;
 
-    &__profile{
-        @include flex($justify: flex-start);
-        gap: 0.7rem;
-        margin: 1.2rem 0px;
-        cursor: pointer;
-    
-        &--image{
-            height: 1.5rem;
-            width: 1.5rem;
-            img{
-                @include image();
-                border-radius: 50%;
-            }
-        }
-        &--details{
-            font-size: 0.8rem;
-        }
+    &--image {
+      height: 1.5rem;
+      width: 1.5rem;
+      img {
+        @include image();
+        border-radius: 50%;
+      }
     }
+    &--details {
+      font-size: 0.8rem;
+    }
+  }
 }
-.bottom-sidebar-left{
-    margin: 0.5rem 0;
-    border-bottom: 2px solid rgba($sec, 0.2);
-    &__profile{
-        @include flex($justify: flex-start);
-        gap: 0.7rem;
-        margin: 1.2rem 0px;
-        cursor: pointer;
-    
-        &--image{
-            height: 1.5rem;
-            width: 1.5rem;
-            img{
-                @include image();
-                border-radius: 50%;
-            }
-        }
-        &--details{
-            font-size: 0.8rem;
-        }
+.middle-sidebar-left {
+  margin: 0.5rem 0;
+  border-bottom: 1px solid rgba($sec, 0.2);
+
+  &__title {
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+
+  &__profile {
+    @include flex($justify: flex-start);
+    gap: 0.7rem;
+    margin: 1.2rem 0px;
+    cursor: pointer;
+
+    &--image {
+      height: 1.5rem;
+      width: 1.5rem;
+      img {
+        @include image();
+        border-radius: 50%;
+      }
     }
-    &__title{
-        font-size: 0.8rem;
-        text-transform: capitalize;
-        cursor: pointer;
+    &--details {
+      font-size: 0.8rem;
     }
+  }
+}
+.bottom-sidebar-left {
+  margin: 0.5rem 0;
+  &__profile {
+    @include flex($justify: flex-start);
+    gap: 0.7rem;
+    margin: 1.2rem 0px;
+    cursor: pointer;
+
+    &--image {
+      height: 1.5rem;
+      width: 1.5rem;
+      img {
+        @include image();
+        border-radius: 50%;
+      }
+    }
+    &--details {
+      font-size: 0.8rem;
+    }
+  }
+  &__title {
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
 }

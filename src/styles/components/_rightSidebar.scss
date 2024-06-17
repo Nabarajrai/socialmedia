@@ -1,0 +1,99 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.right-section-suggestion {
+  h3 {
+    color: rgba($sec, 0.6);
+    font-size: 0.7rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+.rightSidebar-suggestion {
+  @include flex($justify: space-between);
+  padding: 0.6rem 0.7rem;
+}
+.rightSidebar-suggestion-section {
+  @include flex($justify: space-between);
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  &__img {
+    width: 1.5rem;
+    height: 1.5rem;
+    img {
+      @include image();
+      border-radius: 50%;
+    }
+  }
+}
+
+.rightSidebar-suggestion-right {
+  @include flex($justify: space-between);
+  gap: 0.6rem;
+  font-size: 0.7rem;
+  .rightSidebar-follow {
+    background-color: $blue;
+    color: $pri;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.45s ease;
+    &:hover {
+      background-color: rgba($blue, 0.8);
+    }
+  }
+  .rightSidebar-dismiss {
+    background-color: rgba($sec, 0.5);
+    color: $pri;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.45s ease;
+    &:hover {
+      background-color: rgba($sec, 0.4);
+    }
+  }
+}
+.rightsidebar-online-section {
+  padding: 0.6rem 0.8rem;
+  h3 {
+    color: rgba($sec, 0.6);
+    font-size: 0.7rem;
+  }
+}
+
+.righsidebar-online-friendlist {
+  @include flex($justify: flex-start);
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  margin-left: -3px;
+  cursor: pointer;
+
+  &__img {
+    position: relative;
+    width: 1.9rem;
+    height: 1.9rem;
+    &::before {
+      content: "";
+      position: absolute;
+      height: 0.5rem;
+      width: 0.5rem;
+      background-color: rgb(18, 242, 18);
+      top: -3px;
+      left: 11px;
+      z-index: 2;
+      border-radius: 50%;
+    }
+    img {
+      @include image();
+      border: 3px solid rgba(rgb(35, 236, 35), 0.4);
+      border-radius: 50%;
+    }
+  }
+  &__name {
+    font-size: 0.8rem;
+    text-transform: capitalize;
+  }
+}

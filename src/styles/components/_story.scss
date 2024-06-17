@@ -1,0 +1,54 @@
+@use "../../styles/helpers/_variables" as *;
+@use "../../styles/helpers/_mixin" as *;
+@use "../../styles//layout/_grid" as *;
+
+.story-section-reels {
+  @include flex($justify: flex-start);
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, #0000001a 0px 0px 1px 0px;
+  max-width: 130px;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.45s ease;
+  &:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    max-width: 130px;
+    height: 100%;
+    background-color: rgba($pri, 0.3);
+    z-index: 1;
+    color: $pri;
+  }
+  &:hover .story-section-reels__img img {
+    transform: scale(1.1);
+  }
+  &__img {
+    height: 190px;
+    width: 130px;
+    img {
+      @include image();
+      border-radius: 10px;
+      transition: all 0.45s ease;
+    }
+  }
+  &__name {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.7rem;
+    padding: 0 0.5rem;
+    span {
+      color: $pri;
+    }
+  }
+}
+.story-section {
+  @include flex($justify: flex-start);
+  gap: 0.5rem;
+}
