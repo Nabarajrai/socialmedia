@@ -1,0 +1,122 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.post-container {
+  @include box-shadow($color: rgba(0, 0, 0, 0.1));
+  background-color: $pri;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+.post-header-avator {
+  width: 1.9rem;
+  height: 1.9rem;
+  cursor: pointer;
+}
+.post-header-avator img {
+  @include image();
+  border-radius: 50%;
+}
+.post-header {
+  @include flex($justify: flex-start);
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  width: 100%;
+}
+.post-header-action {
+  @include flex($justify: flex-start);
+  gap: 0.5rem;
+  margin-left: auto;
+  &__app {
+    @include flex($justify: center);
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 1.3rem;
+    padding: 0.4rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.45s ease-out;
+    &:hover {
+      background-color: rgba($sec, 0.2);
+    }
+  }
+  &__delete {
+    @include flex($justify: center);
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 1.3rem;
+    padding: 0.4rem;
+    border-radius: 50%;
+    transition: all 0.45s ease-out;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba($sec, 0.2);
+    }
+  }
+}
+.post-header-description {
+  &__title {
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+    &:hover span {
+      color: rgba($blue, 0.6);
+    }
+    span {
+      color: $blue;
+      font-weight: 900;
+      cursor: pointer;
+      margin-left: 0.2rem;
+      transition: all 0.45s ease-out;
+    }
+  }
+  &__time {
+    font-size: 0.7rem;
+    color: rgba($sec, 0.6);
+  }
+}
+.post-image {
+  height: 550px;
+  width: 100%;
+}
+.post-image img {
+  @include image();
+}
+.post-footer {
+  width: 100%;
+}
+.post-footer-top {
+  @include flex($justify: flex-start);
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1.7px solid rgba($sec, 0.1);
+  &__right {
+    @include flex($justify: flex-start);
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+}
+.post-footer-bottom {
+  @include flex($justify: space-between);
+  padding: 0.5rem;
+  font-size: 0.8rem;
+}
+.post-footer-bottom-like,
+.post-footer-bottom-comment,
+.post-footer-bottom-copy,
+.post-footer-bottom-share {
+  @include flex($justify: center);
+  gap: 0.3rem;
+  width: 100%;
+  padding: 0.3rem 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.45s ease-in-out;
+  &:hover {
+    background-color: rgba($sec, 0.1);
+  }
+  &__icon {
+    @include flex($justify: flex-start);
+    font-size: 1.1rem;
+  }
+}

@@ -9,7 +9,7 @@ const SidebarRightomponent = () => {
         <div className="rightSidebar-suggestion">
           <div className="rightSidebar-suggestion-section">
             <div className="rightSidebar-suggestion-section__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="rightSidebar-suggestion__name">
               <span>nabaraj Rai</span>
@@ -23,7 +23,7 @@ const SidebarRightomponent = () => {
         <div className="rightSidebar-suggestion">
           <div className="rightSidebar-suggestion-section">
             <div className="rightSidebar-suggestion-section__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="rightSidebar-suggestion__name">
               <span>nabaraj Rai</span>
@@ -37,7 +37,7 @@ const SidebarRightomponent = () => {
         <div className="rightSidebar-suggestion">
           <div className="rightSidebar-suggestion-section">
             <div className="rightSidebar-suggestion-section__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="rightSidebar-suggestion__name">
               <span>nabaraj Rai</span>
@@ -54,7 +54,7 @@ const SidebarRightomponent = () => {
           <h3>Online Friends</h3>
           <div className="righsidebar-online-friendlist">
             <div className="righsidebar-online-friendlist__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="righsidebar-online-friendlist__name">
               <span>nabaraj Rai</span>
@@ -62,7 +62,7 @@ const SidebarRightomponent = () => {
           </div>
           <div className="righsidebar-online-friendlist">
             <div className="righsidebar-online-friendlist__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="righsidebar-online-friendlist__name">
               <span>nabaraj Rai</span>
@@ -70,7 +70,7 @@ const SidebarRightomponent = () => {
           </div>
           <div className="righsidebar-online-friendlist">
             <div className="righsidebar-online-friendlist__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="righsidebar-online-friendlist__name">
               <span>nabaraj Rai</span>
@@ -78,7 +78,7 @@ const SidebarRightomponent = () => {
           </div>
           <div className="righsidebar-online-friendlist">
             <div className="righsidebar-online-friendlist__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="righsidebar-online-friendlist__name">
               <span>nabaraj Rai</span>
@@ -86,7 +86,7 @@ const SidebarRightomponent = () => {
           </div>
           <div className="righsidebar-online-friendlist">
             <div className="righsidebar-online-friendlist__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="righsidebar-online-friendlist__name">
               <span>nabaraj Rai</span>
@@ -94,7 +94,7 @@ const SidebarRightomponent = () => {
           </div>
           <div className="righsidebar-online-friendlist">
             <div className="righsidebar-online-friendlist__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="righsidebar-online-friendlist__name">
               <span>nabaraj Rai</span>
@@ -102,7 +102,7 @@ const SidebarRightomponent = () => {
           </div>
           <div className="righsidebar-online-friendlist">
             <div className="righsidebar-online-friendlist__img">
-              <img src={logo} alt="logo" />
+              <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="righsidebar-online-friendlist__name">
               <span>nabaraj Rai</span>

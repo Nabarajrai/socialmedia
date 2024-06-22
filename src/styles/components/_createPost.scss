@@ -1,0 +1,104 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.newPost-container {
+  @include box-shadow($color: rgba(0, 0, 0, 0.1));
+  background: $pri;
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+}
+.newpost-top {
+  @include flex($justify: space-between);
+  gap: 0.6rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1.6px solid rgba($sec, 0.1);
+}
+.newpost-img {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+.newpost-img img {
+  @include image();
+  border-radius: 50%;
+}
+.newpost-input {
+  flex: 1;
+}
+.newpost-input {
+  width: 100%;
+  background-color: $bgcolor;
+  padding: 0.5rem 0.8rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.45s ease;
+  &:hover {
+    background-color: rgba($sec, 0.1);
+  }
+  &__container {
+    @include flex($justify: flex-start);
+
+    span {
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      color: rgba($sec, 0.7);
+    }
+  }
+}
+.newpost-bottom {
+  @include flex($justify: space-between);
+  width: 100%;
+  padding: 0.4rem 0;
+  &__vedio {
+    @include flex($justify: space-between);
+    gap: 0.3rem;
+    cursor: pointer;
+    &--icon {
+      width: 1.2rem;
+      height: 1.2rem;
+      cursor: pointer;
+      img {
+        @include image();
+      }
+    }
+    &--title {
+      font-size: 0.8rem;
+    }
+  }
+  &__photo {
+    @include flex($justify: space-between);
+    gap: 0.3rem;
+    cursor: pointer;
+
+    &--icon {
+      width: 1.2rem;
+      height: 1.2rem;
+      cursor: pointer;
+      img {
+        @include image();
+      }
+    }
+    &--title {
+      font-size: 0.8rem;
+    }
+  }
+  &__feelings {
+    @include flex($justify: space-between);
+    gap: 0.3rem;
+    cursor: pointer;
+    &--icon {
+      width: 1.2rem;
+      height: 1.2rem;
+      cursor: pointer;
+      img {
+        @include image();
+      }
+    }
+    &--title {
+      font-size: 0.8rem;
+    }
+  }
+}
