@@ -8,10 +8,15 @@ import CustomInputComponent from "../input/CustomInput.component";
 
 const HeaderComponent = () => {
   const [search, setSearch] = useState("");
+  const [activeMenu, setActiveMenu] = useState("home");
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
-  console.log("hellow", search);
+
+  const handleActiveClass = (menu) => {
+    setActiveMenu(menu);
+  };
   return (
     <header className="header-wrapper">
       <nav className="wrapper">
@@ -20,10 +25,18 @@ const HeaderComponent = () => {
             <span>Social media</span>
           </div>
           <div className="header-right__icons">
-            <div className="header-right__icons--home">
+            <div
+              className={`header-right__icons--home ${
+                activeMenu === "home" ? "active" : ""
+              }`}
+              onClick={() => handleActiveClass("home")}>
               <IoHomeOutline />
             </div>
-            <div className="header-right__icons--app">
+            <div
+              className={`header-right__icons--app ${
+                activeMenu === "app" ? "active" : ""
+              }`}
+              onClick={() => handleActiveClass("app")}>
               <IoApps />
             </div>
           </div>
@@ -38,13 +51,25 @@ const HeaderComponent = () => {
         </div>
         <div className="header-left">
           <div className="header-left__icons">
-            <div className="header-left__icons--avatar">
+            <div
+              className={`header-left__icons--avatar ${
+                activeMenu === "person" ? "active" : ""
+              }`}
+              onClick={() => handleActiveClass("person")}>
               <RxAvatar />
             </div>
-            <div className="header-left__icons--email">
+            <div
+              className={`header-left__icons--email ${
+                activeMenu === "email" ? "active" : ""
+              }`}
+              onClick={() => handleActiveClass("email")}>
               <MdOutlineEmail />
             </div>
-            <div className="header-left__icons--notification">
+            <div
+              className={`header-left__icons--notification ${
+                activeMenu === "noti" ? "active" : ""
+              }`}
+              onClick={() => handleActiveClass("noti")}>
               <IoIosNotificationsOutline />
             </div>
             <div className="header-left__avator">

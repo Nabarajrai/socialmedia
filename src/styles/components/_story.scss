@@ -55,6 +55,9 @@
   gap: 0.5rem;
   width: 100%;
   overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .story-container {
@@ -75,6 +78,10 @@
   padding: 0.2rem;
   border-radius: 50%;
   cursor: pointer;
+  &:disabled {
+    background-color: rgba($pri, 0.7);
+    cursor: not-allowed;
+  }
 }
 .prev {
   transform: rotate(-90deg);
