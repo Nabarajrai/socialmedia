@@ -1,0 +1,30 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.btn {
+  @include flex($justify: center);
+  height: 2rem;
+  width: 100%;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  border-radius: 10px;
+  margin: 0.7rem 0;
+  padding: 0.5rem 0;
+  background-color: $blue;
+  color: $pri;
+  transition: all 0.45s ease-in-out;
+  cursor: pointer;
+  &:disabled {
+    background-color: rgba($sec, 0.8);
+    cursor: not-allowed;
+    &:hover {
+      background-color: rgba($sec, 0.8);
+    }
+  }
+
+  &:hover {
+    background-color: rgba($blue, 0.7);
+  }
+}

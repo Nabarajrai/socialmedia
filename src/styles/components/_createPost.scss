@@ -124,3 +124,112 @@
     }
   }
 }
+.create-modal {
+  padding: 1.2rem;
+  h2 {
+    font-size: 1.1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba($sec, 0.2);
+    padding-bottom: 1rem;
+  }
+}
+.create-modal-cotent {
+  padding: 0.8rem 0;
+  .top {
+    @include flex($justify: flex-start);
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    .description {
+      line-height: 1.6;
+      .name {
+        font-weight: 600;
+      }
+      .friends {
+        @include flex($justify: center);
+        background-color: rgba($sec, 0.1);
+        font-size: 0.6rem;
+        border-radius: 5px;
+        padding: 0.1rem 0;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+  .avator {
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
+    img {
+      @include image();
+      border-radius: 50%;
+    }
+  }
+  .text-area {
+    width: 100%;
+    padding: 1rem 0;
+    height: 100px;
+    textarea {
+      font-size: 1rem;
+      font-weight: 500;
+      width: 100%;
+      height: 100%;
+      letter-spacing: 1.2;
+      resize: none;
+    }
+  }
+  .media {
+    @include flex($justify: flex-end);
+    gap: 0.5rem;
+    width: 100%;
+    height: 3rem;
+    border: 1px solid rgba($sec, 0.1);
+    border-radius: 5px;
+    padding: 0.5rem;
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+      img {
+        @include flex($justify: center);
+        @include image();
+      }
+    }
+    .upload {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-right: auto;
+      cursor: pointer;
+    }
+  }
+  .preview-post {
+    position: relative;
+    border: 1px solid rgba($sec, 0.1);
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    .upload-photo {
+      @include image();
+      position: relative;
+      border-radius: 10px;
+    }
+    &__icon {
+      @include flex($justify: center);
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5em;
+      right: 20px;
+      top: 20px;
+      z-index: 1;
+      border-radius: 50%;
+      background-color: #454141;
+      cursor: pointer;
+      transition: all 0.45s ease;
+      &:hover {
+        background-color: rgba(#645c5c, 0.5);
+      }
+      svg path + path {
+        fill: $pri;
+      }
+    }
+  }
+}

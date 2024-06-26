@@ -9,7 +9,7 @@ import { IoIosShareAlt } from "react-icons/io";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
-  const { id, name, time, url, cover } = data;
+  const { id, name, time, url, cover, description } = data;
   return (
     <div className="post-container" key={id}>
       <div className="post-header">
@@ -31,8 +31,11 @@ const PostsComponent = ({ data }) => {
           </div>
         </div>
       </div>
+      <div className="post-description">
+        <p>{description}</p>
+      </div>
       <div className="post-image">
-        <img src={url || avator} alt="avator" />
+        <img src={URL.createObjectURL(url) || avator} alt="avator" />
       </div>
       <div className="post-footer">
         <div className="post-footer-top">

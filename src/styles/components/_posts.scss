@@ -7,6 +7,13 @@
   background-color: $pri;
   border-radius: 10px;
   margin-bottom: 1rem;
+  .post-description {
+    padding: 0.8rem 0.9rem;
+    p {
+      font-size: 0.8rem;
+      letter-spacing: 0.1px;
+    }
+  }
 }
 .post-header-avator {
   width: 1.9rem;
