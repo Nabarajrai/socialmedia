@@ -186,8 +186,11 @@ const datas = [
 ];
 const HomePage = () => {
   const [posts, setPosts] = useState(datas);
-  console.log("posts: ", posts);
-
+  // console.log("posts: ", posts);
+  // const sortPosts = [...posts].sort(
+  //   (a, b) => new Date(a.time) - new Date(b.time)
+  // );
+  // const mostRecentPosts = sortPosts[0];
   return (
     <div className="home-page-setion">
       <LayoutComponent>

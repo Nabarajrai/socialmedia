@@ -188,7 +188,7 @@
     .icon {
       width: 1.5rem;
       height: 1.5rem;
-      cursor: pointer;
+      cursor: grabbing;
       img {
         @include flex($justify: center);
         @include image();
@@ -198,7 +198,7 @@
       font-size: 0.8rem;
       font-weight: 500;
       margin-right: auto;
-      cursor: pointer;
+      cursor: grabbing;
     }
   }
   .preview-post {
@@ -222,7 +222,7 @@
       z-index: 1;
       border-radius: 50%;
       background-color: #454141;
-      cursor: pointer;
+      cursor: grabbing;
       transition: all 0.45s ease;
       &:hover {
         background-color: rgba(#645c5c, 0.5);

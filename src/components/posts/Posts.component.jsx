@@ -6,10 +6,20 @@ import { FcLike } from "react-icons/fc";
 import { FaRegComment } from "react-icons/fa";
 import { ImCopy } from "react-icons/im";
 import { IoIosShareAlt } from "react-icons/io";
+import { useState, useEffect } from "react";
+import moment from "moment";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
   const { id, name, time, url, cover, description } = data;
+  const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeAgo(moment(time).fromNow());
+    }, 1000);
+    return () => clearInterval(interval);
+  });
+
   return (
     <div className="post-container" key={id}>
       <div className="post-header">
@@ -20,7 +30,7 @@ const PostsComponent = ({ data }) => {
           <div className="post-header-description__title">
             {name} <span>Follow</span>
           </div>
-          <div className="post-header-description__time">{time}</div>
+          <div className="post-header-description__time">{timeAgo}</div>
         </div>
         <div className="post-header-action">
           <div className="post-header-action__app">

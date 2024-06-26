@@ -28,6 +28,7 @@
   @include flex($justify: flex-start);
   gap: 0.5rem;
   padding: 0.5rem 0.8rem;
+  padding-bottom: unset;
   width: 100%;
 }
 .post-header-action {

@@ -19,11 +19,12 @@ const CreatePostComponent = ({ setPosts, posts }) => {
   const handleFile = () => {
     ref.current.click();
   };
+
   const handlePost = () => {
     const newPost = {
       id: Math.random() * 10,
       name: "Nabaraj Rai",
-      time: "1 minute ago",
+      time: new Date(Date.now()),
       url: file,
       cover: "https://i.pravatar.cc/100?img=26",
       description: des,
