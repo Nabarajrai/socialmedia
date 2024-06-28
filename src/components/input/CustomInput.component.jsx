@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import "../../styles/components/_input.scss";
 import { CiSearch } from "react-icons/ci";
 
 const CustomInputComponent = ({

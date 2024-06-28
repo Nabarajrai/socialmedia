@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import "../../styles/components/_story.scss";
 import avator from "../../assets/avator.jpeg";
 
 const StoryComponent = () => {

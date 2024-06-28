@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useRef } from "react";
-import "../../styles/components/_createPost.scss";
 import logo from "../../assets/avator.jpeg";
 import vedio from "../../assets/video.png";
 import picture from "../../assets/picture.png";

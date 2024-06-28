@@ -1,6 +1,3 @@
-import "../../styles/components/_rightSidebar.scss";
-import logo from "../../assets/logo.jpg";
-
 const SidebarRightomponent = () => {
   return (
     <div className="right-sidebar-container">
