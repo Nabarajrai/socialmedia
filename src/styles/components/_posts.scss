@@ -9,6 +9,7 @@
   margin-bottom: 1rem;
   .post-description {
     padding: 0.8rem 0.9rem;
+    padding-bottom: unset;
     p {
       font-size: 0.8rem;
       letter-spacing: 0.1px;
@@ -85,6 +86,7 @@
 .post-image {
   height: 550px;
   width: 100%;
+  padding-top: 0.8rem;
 }
 .post-image img {
   @include image();
@@ -102,6 +104,27 @@
     @include flex($justify: flex-start);
     gap: 0.5rem;
     margin-left: auto;
+    &--comment {
+      cursor: pointer;
+      transition: all 0.45s ease;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &--share {
+      cursor: pointer;
+      transition: all 0.45s ease;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &__like {
+    cursor: pointer;
+    transition: all 0.45s ease;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 .post-footer-bottom {

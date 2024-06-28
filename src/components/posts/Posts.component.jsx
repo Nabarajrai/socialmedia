@@ -41,12 +41,17 @@ const PostsComponent = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="post-description">
-        <p>{description}</p>
-      </div>
-      <div className="post-image">
-        <img src={URL.createObjectURL(url) || avator} alt="avator" />
-      </div>
+      {description && (
+        <div className="post-description">
+          <p>{description}</p>
+        </div>
+      )}
+
+      {url && (
+        <div className="post-image">
+          <img src={URL.createObjectURL(url) || avator} alt="avator" />
+        </div>
+      )}
       <div className="post-footer">
         <div className="post-footer-top">
           <div className="post-footer-top__like">
