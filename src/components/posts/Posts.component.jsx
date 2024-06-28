@@ -2,15 +2,17 @@
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineDelete } from "react-icons/md";
 import avator from "../../assets/avator.jpeg";
-import { FcLike } from "react-icons/fc";
+import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { ImCopy } from "react-icons/im";
 import { IoIosShareAlt } from "react-icons/io";
 import { useState, useEffect } from "react";
+import { BiSolidLike } from "react-icons/bi";
 import moment from "moment";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
+  const [like, setLike] = useState(false);
   const { id, name, time, url, cover, description } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
   useEffect(() => {
@@ -19,7 +21,10 @@ const PostsComponent = ({ data }) => {
     }, 1000);
     return () => clearInterval(interval);
   });
-
+  const handleLike = () => {
+    setLike(!like);
+  };
+  console.log("handleLike", like);
   return (
     <div className="post-container" key={id}>
       <div className="post-header">
@@ -55,7 +60,7 @@ const PostsComponent = ({ data }) => {
       <div className="post-footer">
         <div className="post-footer-top">
           <div className="post-footer-top__like">
-            <span>25 Likes</span>
+            <span>{like ? 1 : "No"} Likes</span>
           </div>
           <div className="post-footer-top__right">
             <div className="post-footer-top__right--comment">
@@ -67,9 +72,9 @@ const PostsComponent = ({ data }) => {
           </div>
         </div>
         <div className="post-footer-bottom">
-          <div className="post-footer-bottom-like">
+          <div className="post-footer-bottom-like" onClick={handleLike}>
             <div className="post-footer-bottom-like__icon">
-              <FcLike />
+              {like ? <BiSolidLike /> : <BiLike />}
             </div>
             <div className="post-footer-bottom-like__like">Like</div>
           </div>
