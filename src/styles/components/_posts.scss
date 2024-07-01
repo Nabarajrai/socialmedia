@@ -131,6 +131,7 @@
   @include flex($justify: space-between);
   padding: 0.5rem;
   font-size: 0.8rem;
+  border-bottom: 1px solid rgba($sec, 0.1);
 }
 .post-footer-bottom-like,
 .post-footer-bottom-comment,
@@ -149,5 +150,84 @@
   &__icon {
     @include flex($justify: flex-start);
     font-size: 1.1rem;
+  }
+}
+.post-modal-footer {
+  @include flex($justify: flex-start);
+  position: fixed;
+  bottom: 0;
+  background-color: $pri;
+  height: 4rem;
+  width: 100%;
+  .comment-area {
+    @include flex($justify: flex-start);
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: none;
+    &__img {
+      width: 1.9rem;
+      height: 1.9rem;
+      overflow: hidden;
+      align-self: flex-start;
+      img {
+        @include image();
+        @include flex($justify: center);
+        border-radius: 50%;
+      }
+    }
+    .comment-area-text {
+      position: relative;
+      width: 100%;
+
+      &__des {
+        height: 100%;
+        width: 100%;
+        border: 1.9px solid rgba($sec, 0.1);
+        height: 2.5rem;
+        border-radius: 5px;
+        textarea {
+          width: 100%;
+          padding: 0.5rem;
+          resize: none;
+        }
+      }
+      &__icon {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.modal-reply {
+  padding: 0.5rem 0.8rem;
+  padding-bottom: 3rem;
+  padding-top: unset;
+  .modal-reply-section {
+    @include flex($justify: flex-start);
+    width: 100%;
+    margin: 0.7rem 0;
+    gap: 0.5rem;
+    &__img {
+      align-self: flex-start;
+      width: 1.9rem;
+      height: 1.9rem;
+      overflow: hidden;
+      img {
+        @include image();
+        border-radius: 50%;
+      }
+    }
+    &__des {
+      font-size: 0.8rem;
+      background-color: rgba($sec, 0.1);
+      padding: 0.6rem;
+      border-radius: 10px;
+      span {
+        font-weight: 600;
+      }
+    }
   }
 }

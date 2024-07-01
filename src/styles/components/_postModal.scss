@@ -1,0 +1,91 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.post-modal-wrapper {
+  @include flex($justify: center);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 100;
+  &.active {
+    pointer-events: auto;
+    .post-modal-bg {
+      opacity: 1;
+      backdrop-filter: blur(0.4rem);
+      pointer-events: auto;
+    }
+    .post-modal {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+.post-modal-bg {
+  @include dark($opacity: 0.5);
+  @include trans();
+  position: fixed;
+  opacity: 0;
+  backdrop-filter: blur(0);
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+.post-modal {
+  position: relative;
+  background-color: $pri;
+  max-width: 31rem;
+  width: 100%;
+  margin: 2.5rem 0;
+  border-radius: 15px;
+  transform: scale(1.1);
+  opacity: 0;
+  height: 90vh;
+  overflow: hidden;
+  z-index: 2;
+
+  .post-modal-content {
+    max-height: 500px;
+    overflow-x: scroll;
+  }
+  .post-modal-section {
+    position: relative;
+    border-bottom: 1px solid rgba($sec, 0.1);
+    height: 3rem;
+    gap: 0.5rem;
+
+    &__close {
+      @include flex($justify: center);
+      position: absolute;
+      right: 1rem;
+      top: 0.67rem;
+      background-color: rgba(red, $alpha: 0.9);
+      width: 1.6rem;
+      height: 1.6rem;
+      font-size: 1.3rem;
+      border-radius: 50%;
+      z-index: 20;
+      cursor: pointer;
+      transition: all 0.45s ease-in-out;
+      &:hover {
+        background-color: rgba(rgb(157, 22, 22), $alpha: 1);
+      }
+      svg path + path {
+        fill: $pri;
+      }
+    }
+    &__title {
+      @include flex($justify: center);
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      height: 100%;
+    }
+  }
+}
