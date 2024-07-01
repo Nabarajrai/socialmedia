@@ -224,7 +224,9 @@ const PostsComponent = ({ data }) => {
               </div>
               <div className="post-footer-bottom-like__like">Like</div>
             </div>
-            <div className="post-footer-bottom-comment">
+            <div
+              className="post-footer-bottom-comment"
+              onClick={() => setPopup(true)}>
               <div className="post-footer-bottom-comment__icon">
                 <FaRegComment />
               </div>
