@@ -232,4 +232,8 @@
       }
     }
   }
+  .modal-scroll {
+    max-height: 300px;
+    overflow-x: scroll;
+  }
 }

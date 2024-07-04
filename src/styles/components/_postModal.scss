@@ -50,8 +50,9 @@
   z-index: 2;
 
   .post-modal-content {
-    max-height: 500px;
+    max-height: 90vh;
     overflow-x: scroll;
+    padding-bottom: 3rem;
   }
   .post-modal-section {
     position: relative;

@@ -48,29 +48,31 @@ const CreatePostComponent = ({ setPosts, posts }) => {
                 <div className="friends">Friends</div>
               </div>
             </div>
-            <div className="text-area">
-              <textarea
-                name="text"
-                id="text"
-                height="auto"
-                value={des}
-                onChange={(e) => setDes(e.target.value)}
-                placeholder="What's on your mind, Nabaraj?"></textarea>
-            </div>
-            {file && (
-              <div className="preview-post">
-                <div
-                  className="preview-post__icon"
-                  onClick={() => setFile(null)}>
-                  <MdOutlineDelete />
-                </div>
-                <img
-                  src={URL.createObjectURL(file)}
-                  alt="Selected img"
-                  className="upload-photo"
-                />
+            <div className="modal-scroll">
+              <div className="text-area">
+                <textarea
+                  name="text"
+                  id="text"
+                  height="auto"
+                  value={des}
+                  onChange={(e) => setDes(e.target.value)}
+                  placeholder="What's on your mind, Nabaraj?"></textarea>
               </div>
-            )}
+              {file && (
+                <div className="preview-post">
+                  <div
+                    className="preview-post__icon"
+                    onClick={() => setFile(null)}>
+                    <MdOutlineDelete />
+                  </div>
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt="Selected img"
+                    className="upload-photo"
+                  />
+                </div>
+              )}
+            </div>
             <div className="media">
               <div className="upload">Upload from here !</div>
               <div className="icon">

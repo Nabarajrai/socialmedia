@@ -84,12 +84,13 @@
   }
 }
 .post-image {
-  height: 550px;
+  // max-height: 10%;
   width: 100%;
   padding-top: 0.8rem;
 }
 .post-image img {
   @include image();
+  object-fit: contain;
 }
 .post-footer {
   width: 100%;
