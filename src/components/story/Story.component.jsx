@@ -1,5 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import avator from "../../assets/avator.jpeg";
+import { FaPlus } from "react-icons/fa6";
+import profile from "../../assets/1.png";
 
 const StoryComponent = () => {
   const ref = useRef(null);
@@ -82,6 +84,21 @@ const StoryComponent = () => {
         </button>
       </div>
       <div className="story-section" ref={ref}>
+        <div className="story-section-reels">
+          <div className="story-section-reels__des">
+            <div className="create-story">
+              <img src={profile} alt="logo" />
+            </div>
+            <div className="create-btm">
+              <div className="create-btn">
+                <button>
+                  <FaPlus />
+                </button>
+              </div>
+              <div className="create-title">Create story</div>
+            </div>
+          </div>
+        </div>
         {[...Array(20)].map((_, index) => (
           <div className="story-section-reels" key={index}>
             <div className="story-section-reels__img">

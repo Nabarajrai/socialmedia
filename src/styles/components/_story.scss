@@ -49,6 +49,45 @@
       color: $pri;
     }
   }
+  &__des {
+    background-color: $pri;
+    height: 190px;
+    width: 130px;
+    overflow: hidden;
+    border-radius: 10px;
+    .create-story {
+      height: 142px;
+      img {
+        @include image();
+      }
+    }
+    .create-btm {
+      position: relative;
+      .create-btn {
+        @include flex($justify: center);
+        position: absolute;
+        top: 1%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1.7rem;
+        height: 1.7rem;
+        border-radius: 50%;
+        background-color: $blue;
+        button {
+          @include flex($justify: center);
+          font-size: 1rem;
+          svg {
+            fill: $pri;
+          }
+        }
+      }
+      .create-title {
+        padding-top: 1rem;
+        font-size: 0.8rem;
+        text-align: center;
+      }
+    }
+  }
 }
 .story-section {
   @include flex($justify: flex-start);
@@ -68,13 +107,13 @@
   position: absolute;
   top: 40%;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 .action-button--horizontal-scroll {
   @include flex($justify: center);
   background-color: $pri;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0.2rem;
   border-radius: 50%;
   cursor: pointer;
