@@ -1,14 +1,15 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import avator from "../../assets/avator.jpeg";
 import { FaPlus } from "react-icons/fa6";
 import profile from "../../assets/1.png";
+import { Link } from "react-router-dom";
 
 const StoryComponent = () => {
   const ref = useRef(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(true);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (ref.current) {
       setCanScrollPrev(ref.current.scrollLeft > 0);
       setCanScrollNext(
@@ -16,18 +17,18 @@ const StoryComponent = () => {
           ref.current.scrollWidth - ref.current.clientWidth
       );
     }
-  };
+  }, [ref]);
 
   useEffect(() => {
     if (ref.current) {
       ref.current.addEventListener("scroll", handleScroll);
       return () => {
-        ref.current.removeEventListener("scroll", handleScroll);
+        ref?.current?.removeEventListener("scroll", handleScroll);
       };
     }
-  }, []);
+  }, [handleScroll]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (ref.current) {
       ref.current.scrollBy({
         top: 0,
@@ -35,9 +36,8 @@ const StoryComponent = () => {
         behavior: "smooth",
       });
     }
-  };
-
-  const handleNext = () => {
+  }, [ref]);
+  const handleNext = useCallback(() => {
     if (ref.current) {
       ref.current.scrollBy({
         top: 0,
@@ -45,7 +45,7 @@ const StoryComponent = () => {
         behavior: "smooth",
       });
     }
-  };
+  }, [ref]);
 
   return (
     <div className="story-container">
@@ -84,7 +84,7 @@ const StoryComponent = () => {
         </button>
       </div>
       <div className="story-section" ref={ref}>
-        <div className="story-section-reels">
+        <Link className="story-section-reels" to="/story/create">
           <div className="story-section-reels__des">
             <div className="create-story">
               <img src={profile} alt="logo" />
@@ -98,7 +98,7 @@ const StoryComponent = () => {
               <div className="create-title">Create story</div>
             </div>
           </div>
-        </div>
+        </Link>
         {[...Array(20)].map((_, index) => (
           <div className="story-section-reels" key={index}>
             <div className="story-section-reels__img">

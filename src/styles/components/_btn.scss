@@ -16,15 +16,32 @@
   color: $pri;
   transition: all 0.45s ease-in-out;
   cursor: pointer;
-  &:disabled {
-    background-color: rgba($sec, 0.8);
-    cursor: not-allowed;
+
+  &.btn-primary {
+    background-color: $blue;
     &:hover {
+      background-color: rgba($blue, 0.7);
+    }
+    &:disabled {
       background-color: rgba($sec, 0.8);
+      cursor: not-allowed;
+      &:hover {
+        background-color: rgba($sec, 0.8);
+      }
     }
   }
-
-  &:hover {
-    background-color: rgba($blue, 0.7);
+  &.btn-secondary {
+    background-color: rgba($sec, 0.7);
+    &:hover {
+      background-color: rgba($sec, 0.6);
+    }
+  }
+  &.btn-lg {
+    padding: 1.3rem 2rem;
+    font-size: 1rem;
+  }
+  &.btn-sm {
+    padding: 0.5rem 0;
+    font-size: 0.7rem;
   }
 }

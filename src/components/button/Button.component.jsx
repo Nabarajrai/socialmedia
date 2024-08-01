@@ -1,12 +1,23 @@
 /* eslint-disable react/prop-types */
-const ButtonComponent = ({ file, des, children }) => {
-  //   const BUTTON_CLASS_TYPES = {
-  //     primary: "primary",
-  //     secondary: "secondary",
-  //   };
+import classnames from "classnames";
+const ButtonComponent = ({
+  file,
+  des,
+  varient,
+  size,
+  className,
+  children,
+  ...rest
+}) => {
+  const sizeClass = size && `btn-${size}`;
+  const varientClass = varient && `btn-${varient}`;
+  const allClassNames = classnames("btn", sizeClass, varientClass, className);
 
   return (
-    <button className="btn" disabled={file === null && des === ""}>
+    <button
+      className={allClassNames}
+      disabled={file === null && des === ""}
+      {...rest}>
       {children}
     </button>
   );

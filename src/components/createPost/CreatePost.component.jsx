@@ -91,7 +91,11 @@ const CreatePostComponent = ({ setPosts, posts }) => {
               </div>
             </div>
             <div className="create-btn" onClick={handlePost}>
-              <ButtonComponent file={file} des={des}>
+              <ButtonComponent
+                file={file}
+                des={des}
+                varient="primary"
+                size="sm">
                 Post
               </ButtonComponent>
             </div>

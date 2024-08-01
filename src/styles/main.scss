@@ -5,7 +5,6 @@
 //components
 @import "../styles/components/_posts";
 @import "../styles/components/_modal";
-@import "../styles/components/_Button";
 @import "../styles/components/_createPost";
 @import "../styles/components/_Header";
 @import "../styles/components/_input";
@@ -14,6 +13,9 @@
 @import "../styles/components/_sidebar";
 @import "../styles/components/_story";
 @import "../styles/components/_postModal";
-
+@import "../styles/components/_storyRightSidebar";
+@import "../styles/components/_storyLeftSidebar";
+@import "../styles/components/_btn";
 //pages
 @import "../styles/pages/_home";
+@import "../styles/pages/_stroy";

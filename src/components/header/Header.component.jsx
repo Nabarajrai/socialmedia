@@ -1,4 +1,6 @@
-import { useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
+import { useState, memo } from "react";
 import { IoHomeOutline, IoApps } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { MdOutlineEmail } from "react-icons/md";
@@ -6,7 +8,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import logo from "../../assets/logo.jpg";
 import CustomInputComponent from "../input/CustomInput.component";
 
-const HeaderComponent = () => {
+const HeaderComponent = ({ type }) => {
   const [search, setSearch] = useState("");
   const [activeMenu, setActiveMenu] = useState("home");
 
@@ -41,12 +43,14 @@ const HeaderComponent = () => {
             </div>
           </div>
           <div className="header-right__input">
-            <CustomInputComponent
-              type="search"
-              title="search..."
-              handleChange={handleChange}
-              value={search}
-            />
+            {type !== "story" && (
+              <CustomInputComponent
+                type="search"
+                title="search..."
+                handleChange={handleChange}
+                value={search}
+              />
+            )}
           </div>
         </div>
         <div className="header-left">
@@ -85,4 +89,4 @@ const HeaderComponent = () => {
   );
 };
 
-export default HeaderComponent;
+export default memo(HeaderComponent);

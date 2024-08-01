@@ -1,0 +1,355 @@
+@use "../../styles/helpers/_variables" as *;
+@use "../../styles/helpers/_mixin" as *;
+@use "../../styles/layout/_grid" as *;
+
+.left-story {
+  background-color: $pri;
+  height: 100%;
+  overflow: hidden;
+  .header {
+    @include flex($justify: flex-end);
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px,
+      rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+    gap: 0.2rem;
+    height: 3rem;
+    padding: 0px 1rem;
+    .header_icon {
+      @include flex($justify: center);
+      width: 2rem;
+      height: 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.5s ease-in-out;
+      &:hover {
+        background-color: rgba($bgcolor, 1);
+      }
+    }
+    .header_notification {
+      @include flex($justify: center);
+      gap: 0.8rem;
+      width: 2rem;
+      height: 2rem;
+      font-size: 1.4rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+      &:hover {
+        background-color: rgba($bgcolor, 1);
+      }
+    }
+    .header_avator {
+      @include flex($justify: flex-end);
+      gap: 0.5rem;
+      margin-left: 0.5rem;
+      cursor: pointer;
+      &__profile {
+        @include flex($justify: center);
+        width: 1.8rem;
+        height: 1.8rem;
+        overflow: hidden;
+        img {
+          @include image();
+          border-radius: 50%;
+        }
+      }
+      &__title {
+        font-size: 0.8rem;
+      }
+    }
+  }
+  .preview-container {
+    height: 100%;
+    padding: 4rem;
+    padding-top: unset;
+  }
+  .story_preview {
+    background-color: rgba($bgcolor, 0.9);
+    border-radius: 10px;
+    max-width: 1000px;
+    height: 100%;
+    margin: auto;
+    padding: 0rem 0rem 4rem 0rem;
+    span {
+      display: block;
+      font-size: 0.8rem;
+      padding: 1rem 0.7rem 0.7rem 1rem;
+    }
+    .preview-section {
+      @include flex($justify: center);
+      padding: 1rem;
+      background-color: $pri;
+      margin: 0.5rem 1rem 12rem 1rem;
+      border-radius: 10px;
+      height: 100%;
+      .preview-img {
+        position: relative;
+        @include flex($justify: center);
+        max-width: 350px;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+        border-radius: 10px;
+        border: 2px solid rgba($sec, 0.6);
+        background-color: $pri;
+
+        &.bgcolor-1 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(84, 150, 255) 0%,
+            rgb(5, 72, 179) 100%
+          );
+        }
+
+        &.bgcolor-2 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(18, 192, 96) 0%,
+            rgb(12, 102, 39) 100%
+          );
+        }
+        &.bgcolor-3 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(219, 34, 169) 0%,
+            rgb(87, 6, 63) 100%
+          );
+        }
+        &.bgcolor-4 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(236, 59, 68) 0%,
+            rgb(79, 8, 65) 100%
+          );
+        }
+        &.bgcolor-5 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(234, 92, 92) 0%,
+            rgb(95, 14, 15) 100%
+          );
+        }
+        &.bgcolor-6 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(116, 202, 249) 0%,
+            rgb(15, 92, 146) 100%
+          );
+        }
+        &.bgcolor-7 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(222, 106, 102) 0%,
+            rgb(108, 20, 20) 100%
+          );
+        }
+        &.bgcolor-8 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(222, 217, 69) 0%,
+            rgb(96, 89, 13) 100%
+          );
+        }
+        &.bgcolor-9 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(84, 150, 200) 0%,
+            rgb(5, 72, 100) 100%
+          );
+        }
+        &.bgcolor-10 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(117, 217, 159) 0%,
+            rgb(48, 92, 56) 100%
+          );
+        }
+        &.bgcolor-11 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(219, 34, 10) 0%,
+            rgb(87, 6, 6) 100%
+          );
+        }
+        &.bgcolor-12 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(236, 59, 60) 0%,
+            rgb(79, 8, 6) 100%
+          );
+        }
+        &.bgcolor-13 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(234, 92, 90) 0%,
+            rgb(95, 14, 1) 100%
+          );
+        }
+        &.bgcolor-14 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(116, 202, 200) 0%,
+            rgb(15, 92, 100) 100%
+          );
+        }
+        &.bgcolor-15 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(222, 106, 10) 0%,
+            rgb(108, 20, 2) 100%
+          );
+        }
+        &.bgcolor-16 {
+          background-image: linear-gradient(
+            135deg,
+            rgb(77, 77, 34) 0%,
+            rgb(96, 89, 130) 100%
+          );
+        }
+
+        .blur-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: inherit; // Inherit the background color
+          filter: blur(8px); // Apply blur effect
+          z-index: 1; // Ensure it stays behind the image section
+        }
+
+        &__section {
+          position: relative;
+          z-index: 2; // Bring this section above the blurred background
+          @include flex($justify: center);
+          height: 100%;
+          width: 100%;
+          border-radius: 9px;
+          overflow: hidden;
+          p {
+            font-size: 1.1rem;
+            color: $pri;
+            text-align: center;
+            padding: 0.8rem;
+            letter-spacing: 1.1;
+            &.simple {
+              font-family: "Poopins", sans-serif;
+            }
+            &.clean {
+              font-family: "Edu AU VIC WA NT Hand", cursive;
+              font-optical-sizing: auto;
+              font-weight: 500;
+              font-style: normal;
+            }
+            &.casual {
+              font-family: "Trebuchet MS", "Lucida Sans Unicode",
+                "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+            }
+            &.fancy {
+              font-family: "Playwrite AR", cursive;
+              font-optical-sizing: auto;
+              font-weight: 500;
+              font-style: normal;
+            }
+          }
+          img {
+            @include image();
+            object-fit: contain;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+}
+.create-story-sections {
+  @include flex($justify: center);
+  gap: 1rem;
+  height: calc(100vh - 3rem);
+  flex-wrap: wrap;
+}
+.create-story-section,
+.create-story-section-text {
+  @include flex($justify: center);
+  cursor: pointer;
+  gap: 0.3rem;
+  flex-direction: column;
+  height: 300px;
+  width: 230px;
+  background-color: green;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(8, 28, 133, 1) 0%,
+    rgba(9, 9, 121, 1) 1%,
+    rgba(7, 56, 152, 1) 50%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  .card {
+    @include flex($justify: center);
+    width: 1.9rem;
+    height: 1.9rem;
+    background-color: $pri;
+    border-radius: 50%;
+    svg {
+      width: 100%;
+    }
+  }
+  .title {
+    color: $pri;
+    font-size: 0.8rem;
+  }
+  input {
+    display: none;
+  }
+}
+
+.create-story-section-text {
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 114, 0.9878545168067226) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
+  .card {
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 768px) {
+  .left-story {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+      padding: 1rem;
+    }
+    .header_icon,
+    .header_notification,
+    .header_avator {
+      margin-bottom: 0.5rem;
+    }
+    .story_preview {
+      max-width: 100%;
+      .preview-img {
+        width: 100%;
+      }
+    }
+    .create-story-section,
+    .create-story-section-text {
+      width: 90%;
+      height: 200px;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .create-story-section,
+  .create-story-section-text {
+    width: 230px;
+    height: 300px;
+  }
+}

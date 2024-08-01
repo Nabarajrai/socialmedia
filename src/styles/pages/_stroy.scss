@@ -1,0 +1,19 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.story-wrapper {
+  @include flex($justify: space-between);
+  align-items: stretch;
+  &__right {
+    width: 350px;
+  }
+  &__left {
+    flex: 1;
+    height: 100vh;
+  }
+}
+.story-create {
+  background-color: rgba($bgcolor, 1);
+  height: 100%;
+}
