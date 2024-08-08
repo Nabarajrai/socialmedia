@@ -338,3 +338,34 @@
   padding: 0px 1rem;
   width: 100%;
 }
+
+.close-modal {
+  @include flex($justify: center);
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.7rem 1rem;
+  width: 100%;
+  .close-main {
+    @include flex($justify: center);
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.8rem;
+    .header {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba($sec, 0.5);
+      width: 100%;
+    }
+    .description {
+      text-align: center;
+    }
+  }
+  .close-action {
+    @include flex($justify: space-between);
+    gap: 0.5rem;
+    width: 60%;
+    margin-left: auto;
+  }
+}

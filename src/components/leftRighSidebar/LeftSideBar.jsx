@@ -18,8 +18,14 @@ const LeftSideBar = ({
 }) => {
   const [letterStyle, setLetterStyle] = useState("simple");
   const [bgColor, setBgColor] = useState("green");
+  const [showNumber, setShowNumber] = useState(30);
+  const [show, setShow] = useState(false);
   const ref = useRef();
   const imgRef = useRef(null);
+  const heightRef = useRef(null);
+  const contentRef = useRef(null);
+
+  console.log("height", text?.split(" ").length, showNumber);
 
   const handlePhoto = useCallback(() => {
     ref.current.click();
@@ -42,6 +48,16 @@ const LeftSideBar = ({
     }
   }, []);
 
+  const handleShowMore = useCallback(() => {
+    setShowNumber(text?.split("  ").length);
+    setShow(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setShowNumber]);
+  const handleShowLess = useCallback(() => {
+    setShowNumber(30);
+    setShow(false);
+  }, [setShowNumber]);
+
   useEffect(() => {
     const img = imgRef.current;
     if (img) {
@@ -59,6 +75,7 @@ const LeftSideBar = ({
   useEffect(() => {
     setLetterStyle(type);
   }, [type]);
+
   return (
     <div className="left-story">
       <div className="header">
@@ -83,11 +100,31 @@ const LeftSideBar = ({
               <div
                 className={`preview-img bgcolor-${bgColorsNumber}`}
                 style={{ border: "none" }}>
-                <div className="preview-img__section">
-                  <p className={letterStyle}>
-                    {text ? text : "Start typing..."}
+                <div className="preview-img__section" ref={heightRef}>
+                  <p className={letterStyle} ref={contentRef}>
+                    {text
+                      ? showNumber === 30
+                        ? text.split(" ").slice(0, 30).join(" ") + "..."
+                        : text
+                            .split(" ")
+                            .slice(0, text.split(" ").length)
+                            .join("  ")
+                      : "Start typing..."}
                   </p>
                 </div>
+                {text.length > showNumber && (
+                  <>
+                    {show ? (
+                      <h2 className="seeContent" onClick={handleShowLess}>
+                        See less
+                      </h2>
+                    ) : (
+                      <h2 className="seeContent" onClick={handleShowMore}>
+                        See more
+                      </h2>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>

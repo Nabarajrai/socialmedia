@@ -85,6 +85,7 @@
       .preview-img {
         position: relative;
         @include flex($justify: center);
+        flex-direction: column;
         max-width: 350px;
         margin: auto;
         width: 100%;
@@ -93,6 +94,7 @@
         border-radius: 10px;
         border: 2px solid rgba($sec, 0.6);
         background-color: $pri;
+        padding: 1rem 0px;
 
         &.bgcolor-1 {
           background-image: linear-gradient(
@@ -207,7 +209,15 @@
             rgb(96, 89, 130) 100%
           );
         }
-
+        .seeContent {
+          color: $pri;
+          font-size: 1rem;
+          cursor: pointer;
+          border-bottom: 2px solid $pri;
+          &:hover {
+            border-bottom: 2px solid $pri;
+          }
+        }
         .blur-background {
           position: absolute;
           top: 0;
@@ -223,15 +233,16 @@
           position: relative;
           z-index: 2; // Bring this section above the blurred background
           @include flex($justify: center);
-          height: 100%;
+          height: auto;
           width: 100%;
           border-radius: 9px;
-          overflow: hidden;
+          overflow-x: scroll;
           p {
+            height: 100%;
             font-size: 1.1rem;
             color: $pri;
             text-align: center;
-            padding: 0.8rem;
+            padding: 1rem 0.8rem;
             letter-spacing: 1.1;
             &.simple {
               font-family: "Poopins", sans-serif;

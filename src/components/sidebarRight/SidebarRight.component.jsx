@@ -13,7 +13,11 @@ const SidebarRightomponent = () => {
             </div>
           </div>
           <div className="rightSidebar-suggestion-right">
-            <span className="rightSidebar-follow">Follow</span>
+            <span
+              className="rightSidebar-follow"
+              onClick={() => alert("hellow nabaraj")}>
+              Follow
+            </span>
             <span className="rightSidebar-dismiss">Dissmiss</span>
           </div>
         </div>
