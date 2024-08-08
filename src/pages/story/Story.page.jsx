@@ -30,7 +30,7 @@ const StoryPage = () => {
   );
   const handleOpen = useCallback(() => {
     setOpen((prev) => !prev);
-  });
+  }, []);
   const handleOptions = useCallback(
     (option) => {
       handleOpen();
