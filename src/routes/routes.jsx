@@ -4,6 +4,7 @@ import LoginPage from "../pages/login/Login.page";
 import RegisterPage from "../pages/register/Register.page";
 import NotFounPage from "../pages/notFound/NotFoun.page";
 import StoryPage from "../pages/story/Story.page";
+import ProfilePage from "../pages/profile/Profile.page";
 
 export const routes = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const routes = createBrowserRouter([
   {
     path: "/story/create",
     element: <StoryPage />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
   },
   {
     path: "/*",

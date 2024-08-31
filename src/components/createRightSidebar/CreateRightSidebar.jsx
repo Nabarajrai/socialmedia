@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import { GrFormClose } from "react-icons/gr";
@@ -10,6 +11,7 @@ import { memo, useCallback, useMemo, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import classnames from "classnames";
 import ModalComponent from "../modal/Modal.component";
+import { AllDataContext } from "../../context";
 
 const CreateRightSidebar = ({
   file,
@@ -36,7 +38,30 @@ const CreateRightSidebar = ({
   const handleBack = useCallback(() => {
     navigate("/");
   });
-
+  const { handleUploadStory } = useContext(AllDataContext);
+  const storyText = {
+    id: 2,
+    story: text,
+    bgNumber: bgColors,
+    styleType: type,
+    textStyle: type,
+  };
+  const data = {
+    id: 1,
+    image: file,
+  };
+  const handleUpload = useCallback((story) => {
+    handleUploadStory(story);
+    navigate("/");
+  }, []);
+  const handleUploadText = useCallback(
+    (text) => {
+      handleUploadStory(text);
+      navigate("/");
+    },
+    [text]
+  );
+  console.log("text", storyText);
   return (
     <>
       <ModalComponent active={popup} setActive={handleOpens}>
@@ -56,7 +81,7 @@ const CreateRightSidebar = ({
               Discard
             </ButtonComponent>
             <ButtonComponent size="sm" varient="primary">
-              Share to Story
+              Continue to edit?
             </ButtonComponent>
           </div>
         </div>
@@ -170,7 +195,10 @@ const CreateRightSidebar = ({
               onClick={() => setPopup(true)}>
               Discard
             </ButtonComponent>
-            <ButtonComponent size="sm" varient="primary">
+            <ButtonComponent
+              size="sm"
+              varient="primary"
+              onClick={() => handleUploadText(storyText)}>
               Share to Story
             </ButtonComponent>
           </div>
@@ -183,7 +211,10 @@ const CreateRightSidebar = ({
               onClick={() => setPopup(true)}>
               Discard
             </ButtonComponent>
-            <ButtonComponent size="sm" varient="primary">
+            <ButtonComponent
+              size="sm"
+              varient="primary"
+              onClick={() => handleUpload(data)}>
               Share to Story
             </ButtonComponent>
           </div>

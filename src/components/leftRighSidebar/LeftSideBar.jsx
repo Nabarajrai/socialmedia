@@ -16,7 +16,6 @@ const LeftSideBar = ({
   bgColorsNumber,
   type,
 }) => {
-  const [letterStyle, setLetterStyle] = useState("simple");
   const [bgColor, setBgColor] = useState("green");
   const [showNumber, setShowNumber] = useState(30);
   const [show, setShow] = useState(false);
@@ -72,9 +71,6 @@ const LeftSideBar = ({
       }
     };
   }, [handleImageLoad, file]);
-  useEffect(() => {
-    setLetterStyle(type);
-  }, [type]);
 
   return (
     <div className="left-story">
@@ -101,7 +97,7 @@ const LeftSideBar = ({
                 className={`preview-img bgcolor-${bgColorsNumber}`}
                 style={{ border: "none" }}>
                 <div className="preview-img__section" ref={heightRef}>
-                  <p className={letterStyle} ref={contentRef}>
+                  <p className={type} ref={contentRef}>
                     {text
                       ? showNumber === 30
                         ? text.split(" ").slice(0, 30).join(" ") + "..."

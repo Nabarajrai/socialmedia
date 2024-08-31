@@ -1,8 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useCallback, useState } from "react";
+import { useCallback, useState, useContext } from "react";
 import CreateRightSidebar from "../../components/createRightSidebar/CreateRightSidebar";
 import LeftSideBar from "../../components/leftRighSidebar/LeftSideBar";
 import { memo } from "react";
+
 const StoryPage = () => {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("simple");
@@ -10,6 +11,7 @@ const StoryPage = () => {
   const [file, setFile] = useState(null);
   const [openText, setOpenText] = useState(false);
   const [text, setText] = useState("");
+
   const handleFile = useCallback((newFile) => {
     setFile(newFile);
   }, []);
@@ -38,6 +40,7 @@ const StoryPage = () => {
     },
     [handleOpen, setType]
   );
+
   return (
     <div className="story-create">
       <div className="story-wrapper">

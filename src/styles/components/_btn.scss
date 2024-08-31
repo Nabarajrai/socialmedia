@@ -36,6 +36,13 @@
       background-color: rgba($sec, 0.6);
     }
   }
+  &.btn-default {
+    background-color: rgba($pri, 0.8);
+    color: $sec;
+    &:hover {
+      background-color: rgba($pri, 1);
+    }
+  }
   &.btn-lg {
     padding: 1.3rem 2rem;
     font-size: 1rem;

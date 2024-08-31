@@ -11,6 +11,7 @@ import logo from "../../assets/logo.jpg";
 import CustomInputComponent from "../input/CustomInput.component";
 import classnames from "classnames";
 import ButtonComponent from "../button/Button.component";
+import { useNavigate } from "react-router-dom";
 
 const HeaderComponent = ({ type }) => {
   const [search, setSearch] = useState("");
@@ -18,6 +19,7 @@ const HeaderComponent = ({ type }) => {
   const [visible, setVisible] = useState(false);
   const dropRef = useRef(null);
   const listRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleChange = useCallback((e) => {
     setSearch(e.target.value);
@@ -52,6 +54,11 @@ const HeaderComponent = ({ type }) => {
     return classnames("dropdown none ", className);
   }, [className]);
 
+  const handleMenu = () => {
+    handleActiveClass("home");
+    navigate("/");
+  };
+
   useEffect(() => {
     if (visible) {
       if (listRef.current && listRef.current.classList.contains("none")) {
@@ -74,7 +81,7 @@ const HeaderComponent = ({ type }) => {
                   className={`header-right__icons--home ${
                     activeMenu === "home" ? "active" : ""
                   }`}
-                  onClick={() => handleActiveClass("home")}>
+                  onClick={handleMenu}>
                   <IoHomeOutline />
                 </div>
                 <div
@@ -136,7 +143,9 @@ const HeaderComponent = ({ type }) => {
               <div className="icons">
                 <IoPeopleCircleSharp />
               </div>
-              <div className="title">Profile</div>
+              <div className="title" onClick={() => navigate("/profile")}>
+                Profile
+              </div>
             </div>
             <div className="lists">
               <div className="icons">

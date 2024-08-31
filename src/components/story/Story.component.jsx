@@ -1,8 +1,9 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useContext } from "react";
 import avator from "../../assets/avator.jpeg";
 import { FaPlus } from "react-icons/fa6";
 import profile from "../../assets/1.png";
 import { Link } from "react-router-dom";
+import { AllDataContext } from "../../context";
 
 const StoryComponent = () => {
   const ref = useRef(null);
@@ -46,6 +47,9 @@ const StoryComponent = () => {
       });
     }
   }, [ref]);
+
+  const { story } = useContext(AllDataContext);
+  console.log("story", story);
 
   return (
     <div className="story-container">
@@ -99,7 +103,36 @@ const StoryComponent = () => {
             </div>
           </div>
         </Link>
-        {[...Array(20)].map((_, index) => (
+        {story &&
+          story.map((data) => {
+            return (
+              <>
+                <div className="story-section-reels">
+                  <div className="story-section-reels__img">
+                    {data.image ? (
+                      <img src={URL.createObjectURL(data?.image)} alt="img" />
+                    ) : (
+                      <div
+                        className={`preview-img bgcolor-${data.bgNumber}`}
+                        style={{ border: "none" }}>
+                        <div className="preview-img__section">
+                          <p className={data.textStyle}>
+                            {data.story.split(" ").slice(0, 40).join(" ") +
+                              "..."}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="story-section-reels__name">
+                    <span>Nabaraj Rai</span>
+                  </div>
+                </div>
+              </>
+            );
+          })}
+
+        {[...Array(3)].map((_, index) => (
           <div className="story-section-reels" key={index}>
             <div className="story-section-reels__img">
               <img src={avator} alt="logo" />
