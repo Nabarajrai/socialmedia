@@ -14,6 +14,7 @@ const HomePage = () => {
   //   (a, b) => new Date(a.time) - new Date(b.time)
   // );
   // const mostRecentPosts = sortPosts[0];
+  console.log("Posts", posts);
   return (
     <div className="home-page-setion">
       <LayoutComponent>

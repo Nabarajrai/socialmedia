@@ -8,11 +8,16 @@ import gaming from "../../assets/gaming.png";
 import vedios from "../../assets/video.png";
 import chat from "../../assets/chat-bubble.png";
 import gallery from "../../assets/picture.png";
+import { useNavigate } from "react-router-dom";
+
 const SideNavbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="sidebar-left-wrapper">
       <div className="top-sidebar-left">
-        <div className="top-sidebar-left__profile">
+        <div
+          className="top-sidebar-left__profile"
+          onClick={() => navigate("/profile")}>
           <div className="top-sidebar-left__profile--image">
             <img src={logo} alt="avatar" width={50} height={50} />
           </div>
