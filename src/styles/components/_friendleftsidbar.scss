@@ -1,0 +1,65 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.friends-left-nav {
+  .settings {
+    @include flex($justify: space-between);
+    gap: 0.5rem;
+    .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .icons {
+      @include flex($justify: flex-start);
+      width: 1.8rem;
+      height: 1.8rem;
+      background-color: rgba($sec, 0.1);
+      border-radius: 50%;
+      padding: 0.2rem;
+      cursor: pointer;
+      transition: all 0.45s ease-in-out;
+      &:hover {
+        background-color: rgba($sec, 0.2);
+      }
+      svg {
+        @include image();
+      }
+    }
+  }
+  .tabs-section {
+    padding: 0.6rem 0px;
+    .tab {
+      @include flex($justify: flex-start);
+      gap: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      cursor: pointer;
+      &.active {
+        background-color: rgba($sec, 0.1);
+        border-radius: 10px;
+        .icon {
+          background-color: rgba($blue, 0.7);
+          svg {
+            fill: $pri;
+          }
+        }
+      }
+      .icon {
+        @include flex($justify: flex-start);
+        width: 1.7rem;
+        height: 1.7rem;
+        background-color: rgba($sec, 0.1);
+        border-radius: 50%;
+        padding: 0.3rem;
+        box-shadow: 0px 1px 1px rgba($sec, 0.1);
+        svg {
+          @include image();
+          fill: rgba($sec, 0.7);
+        }
+      }
+      .title {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

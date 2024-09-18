@@ -176,6 +176,7 @@
   .left-content {
     @include flex($justify: flex-start);
     background-color: rgba($sec, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
     padding: 0.5rem;
     border-radius: 10px;
     height: 200px;
@@ -186,6 +187,7 @@
       padding: 0.5rem 0;
       textarea {
         border: 1.5px solid rgba($pri, 1);
+        background: $pri;
         border-radius: 10px;
         font-size: 0.8rem;
         font-weight: 500;

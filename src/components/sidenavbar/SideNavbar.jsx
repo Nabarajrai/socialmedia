@@ -23,7 +23,9 @@ const SideNavbar = () => {
           </div>
           <div className="top-sidebar-left__profile--details">Nabaraj Rai</div>
         </div>
-        <div className="top-sidebar-left__profile">
+        <div
+          className="top-sidebar-left__profile"
+          onClick={() => navigate("/friends")}>
           <div className="top-sidebar-left__profile--image">
             <img src={friends} alt="friends" />
           </div>
