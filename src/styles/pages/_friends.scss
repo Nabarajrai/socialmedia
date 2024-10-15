@@ -3,9 +3,12 @@
 @use "../layout/_grid" as *;
 .friends-main-section {
   @include flex($justify: space-between);
+  align-items: flex-start;
   gap: 0.5rem;
   padding: 0.8rem 0px;
   .left-sidebar {
+    position: sticky;
+    top: 75px;
     flex-basis: 25%;
   }
   .right-sidebar {

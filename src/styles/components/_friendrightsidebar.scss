@@ -1,3 +1,20 @@
 @use "../helpers/_variables" as *;
 @use "../helpers/_mixin" as *;
 @use "../layout/_grid" as *;
+
+.requested-friends {
+  font-size: 0.7rem;
+}
+.people-you-may-know {
+  margin-top: 1.5rem;
+  font-size: 0.7rem;
+  border-top: 1.5px solid rgba($sec, 0.2);
+  h2 {
+    margin-top: 1rem;
+  }
+  .cards-section {
+    @include flex($justify: flex-start);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

@@ -1,0 +1,26 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.register-page {
+  @include flex($justify: center);
+  height: 100vh;
+  .register {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    max-width: 500px;
+    margin: auto;
+    padding: 3rem;
+    border-radius: 10px;
+    h3 {
+      padding: 0.5rem 0px;
+    }
+    form {
+      width: 350px;
+    }
+    .already-ac {
+      @include flex($justify: flex-end);
+      font-size: 0.6rem;
+      margin: 1rem 0;
+    }
+  }
+}

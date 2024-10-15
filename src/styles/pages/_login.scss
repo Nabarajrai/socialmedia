@@ -1,0 +1,27 @@
+@use "../helpers/_variables" as *;
+@use "../helpers/_mixin" as *;
+@use "../layout/_grid" as *;
+
+.login-wrapper {
+  @include flex($justify: center);
+  height: 100vh;
+}
+.login {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  max-width: 500px;
+  margin: auto;
+  padding: 3rem;
+  border-radius: 10px;
+}
+.username {
+  margin: 0.5rem 0px;
+}
+.password {
+  margin: 0.5rem 0px;
+}
+.handle-action {
+  @include flex($justify: space-between);
+  gap: 0.5rem;
+  font-size: 0.6rem;
+  margin-top: 1.3rem;
+}

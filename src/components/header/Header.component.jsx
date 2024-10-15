@@ -154,7 +154,10 @@ const HeaderComponent = ({ type }) => {
               <div className="title">Settings</div>
             </div>
             <div className="action">
-              <ButtonComponent varient="primary" size="sm">
+              <ButtonComponent
+                varient="primary"
+                size="sm"
+                onClick={() => navigate("/login")}>
                 Logout
               </ButtonComponent>
             </div>

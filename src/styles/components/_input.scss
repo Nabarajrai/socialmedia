@@ -2,6 +2,14 @@
 @use "../helpers/_mixin" as *;
 @use "../layout/_grid" as *;
 
+.custom-input {
+  .input-label {
+    display: block;
+    font-size: 0.8rem;
+    padding-bottom: 0.4rem;
+  }
+}
+
 .input-group {
   @include flex($justify: space-between);
   gap: 0.5rem;
@@ -9,6 +17,12 @@
   padding: 0 0.5rem;
   border: 1px solid rgba($sec, 0.2);
   border-radius: 10px;
+  transition: all 0.11s ease;
+  &:focus-within {
+    outline: 1px solid rgba($blue, 0.9);
+    border-color: rgba($blue, 0.9); // Customize this if needed
+  }
+
   &__icon {
     @include flex($justify: center);
     font-size: 0.9rem;
@@ -25,5 +39,9 @@
     height: 1.5rem;
     padding: 0.5rem 0px;
     background-color: transparent;
+    transition: all 0.12s ease;
+  }
+  &.lg {
+    padding: 4px 0.5rem;
   }
 }
