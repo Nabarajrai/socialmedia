@@ -21,6 +21,23 @@
       @include flex($justify: flex-end);
       font-size: 0.6rem;
       margin: 1rem 0;
+      span {
+        color: rgba($blue, 1);
+        position: relative;
+        transition: all 0.45s ease-in-out;
+        &:hover::before {
+          width: 100%;
+        }
+        &::before {
+          position: absolute;
+          content: "";
+          width: 0%;
+          height: 2px;
+          background: rgba($blue, 0.9);
+          bottom: -5px;
+          transition: all 0.25s ease-in;
+        }
+      }
     }
   }
 }

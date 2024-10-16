@@ -17,7 +17,6 @@ const LoginPage = () => {
     },
     [formsValues]
   );
-  console.log("form values", formsValues);
   return (
     <div className="login-wrapper">
       <div className="login">
@@ -30,6 +29,7 @@ const LoginPage = () => {
               name="username"
               handleChange={handleChange}
               label="Username"
+              autocomplete="off"
             />
           </div>
           <div className="password">
@@ -39,6 +39,7 @@ const LoginPage = () => {
               name="password"
               handleChange={handleChange}
               label="Password"
+              autocomplete="off"
             />
           </div>
           <div className="action">
@@ -51,7 +52,7 @@ const LoginPage = () => {
           </div>
           <div className="handle-action">
             <div className="forget">Forget Password?</div>
-            <div className="register">
+            <div className="singup">
               Doesn&apos;t have account ! {""}
               <Link to="/register">
                 <span>please register here?</span>

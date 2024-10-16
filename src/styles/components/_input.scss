@@ -41,6 +41,12 @@
     background-color: transparent;
     transition: all 0.12s ease;
   }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+  }
   &.lg {
     padding: 4px 0.5rem;
   }

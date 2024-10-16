@@ -1,8 +1,25 @@
 import { Link } from "react-router-dom";
 import ButtonComponent from "../../components/button/Button.component";
 import CustomInputComponent from "../../components/input/CustomInput.component";
+import { useCallback, useState } from "react";
 
 const RegisterPage = () => {
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setFormValues({ ...formValues, [name]: value });
+    },
+    [formValues]
+  );
+
+  console.log("RegisterPage", formValues);
+
   return (
     <div className="register-page">
       <div className="register">
@@ -10,10 +27,12 @@ const RegisterPage = () => {
         <form action="">
           <div className="username">
             <CustomInputComponent
-              inputType="text"
+              inputType="email"
               size="lg"
               name="email"
-              label="Username"
+              label="Email"
+              handleChange={handleChange}
+              autocomplete="off"
             />
           </div>
           <div className="password">
@@ -22,14 +41,18 @@ const RegisterPage = () => {
               size="lg"
               name="password"
               label="Password"
+              handleChange={handleChange}
+              autocomplete="off"
             />
           </div>
           <div className="confirmPassword">
             <CustomInputComponent
               inputType="password"
               size="lg"
-              name="confirmpassword"
+              name="confirmPassword"
               label="Confirm Password"
+              handleChange={handleChange}
+              autocomplete="off"
             />
           </div>
           <div className="register-action">
@@ -37,7 +60,9 @@ const RegisterPage = () => {
               <ButtonComponent>Register</ButtonComponent>
             </div>
             <div className="already-ac">
-              <Link to="/login">Already exists account?</Link>
+              <Link to="/login">
+                <span>Already exists account?</span>
+              </Link>
             </div>
           </div>
         </form>
