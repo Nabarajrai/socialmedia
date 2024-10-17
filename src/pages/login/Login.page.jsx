@@ -17,11 +17,21 @@ const LoginPage = () => {
     },
     [formsValues]
   );
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      navigate("/");
+    },
+    [navigate]
+  );
+
+  console.log("form values", formsValues);
   return (
     <div className="login-wrapper">
       <div className="login">
         <h3>Social Media</h3>
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
           <div className="username">
             <CustomInputComponent
               inputType="text"
@@ -29,7 +39,7 @@ const LoginPage = () => {
               name="username"
               handleChange={handleChange}
               label="Username"
-              autocomplete="off"
+              autoComplete="off"
             />
           </div>
           <div className="password">
@@ -39,14 +49,11 @@ const LoginPage = () => {
               name="password"
               handleChange={handleChange}
               label="Password"
-              autocomplete="off"
+              autoComplete="off"
             />
           </div>
           <div className="action">
-            <ButtonComponent
-              size="sm"
-              varient="primary "
-              onClick={() => navigate("/")}>
+            <ButtonComponent size="sm" varient="primary ">
               Login
             </ButtonComponent>
           </div>
