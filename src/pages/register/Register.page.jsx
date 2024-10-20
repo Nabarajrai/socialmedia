@@ -27,6 +27,16 @@ const RegisterPage = () => {
         <form action="">
           <div className="username">
             <CustomInputComponent
+              inputType="text"
+              size="lg"
+              name="fullname"
+              label="Full Name"
+              handleChange={handleChange}
+              autocomplete="off"
+            />
+          </div>
+          <div className="username">
+            <CustomInputComponent
               inputType="email"
               size="lg"
               name="email"
