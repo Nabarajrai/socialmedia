@@ -6,6 +6,7 @@ import NotFounPage from "../pages/notFound/NotFoun.page";
 import StoryPage from "../pages/story/Story.page";
 import ProfilePage from "../pages/profile/Profile.page";
 import FriendsPage from "../pages/friends/Friends.page";
+import ForgetPassword from "../pages/forgetPassword/ForgetPassword";
 
 export const routes = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const routes = createBrowserRouter([
   {
     path: "/friends",
     element: <FriendsPage />,
+  },
+  {
+    path: "/forget-password",
+    element: <ForgetPassword />,
   },
   {
     path: "/*",

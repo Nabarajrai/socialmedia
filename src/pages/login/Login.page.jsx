@@ -58,7 +58,9 @@ const LoginPage = () => {
             </ButtonComponent>
           </div>
           <div className="handle-action">
-            <div className="forget">Forget Password?</div>
+            <Link to="/forget-password">
+              <div className="forget">Forget Password?</div>
+            </Link>
             <div className="singup">
               Doesn&apos;t have account ! {""}
               <Link to="/register">

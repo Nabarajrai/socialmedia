@@ -1,6 +1,7 @@
 @use "../helpers/_variables" as *;
 @use "../helpers/_mixin" as *;
 @use "../layout/_grid" as *;
+
 .friends-main-section {
   @include flex($justify: space-between);
   align-items: flex-start;
