@@ -1,32 +1,51 @@
+/* eslint-disable react/prop-types */
 import CustomInputComponent from "../../components/input/CustomInput.component";
 import ButtonComponent from "../../components/button/Button.component";
-import { useNavigate } from "react-router-dom";
-import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { useCallback, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Uncomment useNavigate
+import { AllDataContext } from "../../context";
+import { api, APIS } from "../../config/Api.config";
+import axios from "axios";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [formsValues, setFormValues] = useState({
     username: "",
     password: "",
   });
+  const { login, currentUser } = useContext(AllDataContext);
+  const navigate = useNavigate(); // Use navigate for redirect
+
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setFormValues({ ...formsValues, [name]: value });
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
     },
-    [formsValues]
+    [] // Empty dependency array
   );
 
   const handleSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
-      navigate("/");
+      const body = {
+        email: formsValues.username,
+        password: formsValues.password,
+      };
+      try {
+        const res = await login(body);
+        if (res?.status === 200) {
+          console.log("login successfully", res);
+        }
+        // navigate("/"); // Navigate to home page after successful login
+      } catch (error) {
+        console.error("Login failed:", error); // Error handling
+      }
     },
-    [navigate]
+    [login, formsValues.password, formsValues.username]
   );
 
-  console.log("form values", formsValues);
   return (
     <div className="login-wrapper">
       <div className="login">
@@ -39,7 +58,7 @@ const LoginPage = () => {
               name="username"
               handleChange={handleChange}
               label="Username"
-              autoComplete="off"
+              required
             />
           </div>
           <div className="password">
@@ -49,7 +68,7 @@ const LoginPage = () => {
               name="password"
               handleChange={handleChange}
               label="Password"
-              autoComplete="off"
+              required
             />
           </div>
           <div className="action">

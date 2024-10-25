@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
 import ButtonComponent from "../../components/button/Button.component";
 import CustomInputComponent from "../../components/input/CustomInput.component";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { api, APIS } from "../../config/Api.config";
 
 const RegisterPage = () => {
   const [formValues, setFormValues] = useState({
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
+  const [errMsg, setErrMsg] = useState("");
+  const [data, setData] = useState("");
+  const [show, setShow] = useState(false);
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -17,22 +21,55 @@ const RegisterPage = () => {
     },
     [formValues]
   );
+  const handleRegister = useCallback(
+    async (e) => {
+      e.preventDefault();
+      if (formValues.password !== formValues.confirmPassword) {
+        setErrMsg("Password did not match");
+        setShow(true);
+        return;
+      }
+      const body = {
+        username: formValues.fullName,
+        email: formValues.email,
+        password: formValues.password,
+      };
+      try {
+        const res = await api(APIS.register, "POST", body);
+        console.log("response registered", res);
+        setData(res?.data?.message);
+      } catch (e) {
+        console.log("Error on register", e);
+      }
+    },
+    [
+      formValues.password,
+      formValues.confirmPassword,
+      formValues.email,
+      formValues.fullName,
+    ]
+  );
 
-  console.log("RegisterPage", formValues);
-
+  setTimeout(() => {
+    setShow(false);
+  }, 500);
+  const focusInput = useCallback(() => {
+    setErrMsg("");
+  }, []);
   return (
     <div className="register-page">
       <div className="register">
         <h3>Register Here</h3>
-        <form action="">
+        <form action="" onSubmit={handleRegister}>
           <div className="username">
             <CustomInputComponent
               inputType="text"
               size="lg"
-              name="fullname"
+              name="fullName"
               label="Full Name"
               handleChange={handleChange}
-              autocomplete="off"
+              onFocus={focusInput}
+              required
             />
           </div>
           <div className="username">
@@ -42,7 +79,8 @@ const RegisterPage = () => {
               name="email"
               label="Email"
               handleChange={handleChange}
-              autocomplete="off"
+              onFocus={focusInput}
+              required
             />
           </div>
           <div className="password">
@@ -52,7 +90,8 @@ const RegisterPage = () => {
               name="password"
               label="Password"
               handleChange={handleChange}
-              autocomplete="off"
+              onFocus={focusInput}
+              required
             />
           </div>
           <div className="confirmPassword">
@@ -61,10 +100,14 @@ const RegisterPage = () => {
               size="lg"
               name="confirmPassword"
               label="Confirm Password"
+              onFocus={focusInput}
               handleChange={handleChange}
-              autocomplete="off"
+              required
             />
           </div>
+          {errMsg && (
+            <div className={`register-err ${show && "shakes"} }`}>{errMsg}</div>
+          )}
           <div className="register-action">
             <div className="btn">
               <ButtonComponent>Register</ButtonComponent>
