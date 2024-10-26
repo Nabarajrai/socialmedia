@@ -4,16 +4,17 @@ import ButtonComponent from "../../components/button/Button.component";
 import { useCallback, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Uncomment useNavigate
 import { AllDataContext } from "../../context";
-import { api, APIS } from "../../config/Api.config";
-import axios from "axios";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  const [error, setError] = useState("");
   const [formsValues, setFormValues] = useState({
     username: "",
     password: "",
   });
-  const { login, currentUser } = useContext(AllDataContext);
+  const { login } = useContext(AllDataContext);
   const navigate = useNavigate(); // Use navigate for redirect
+  const notify = (success) => toast(success);
 
   const handleChange = useCallback(
     (e) => {
@@ -36,16 +37,19 @@ const LoginPage = () => {
       try {
         const res = await login(body);
         if (res?.status === 200) {
-          console.log("login successfully", res);
+          notify(res?.data?.message);
         }
         // navigate("/"); // Navigate to home page after successful login
-      } catch (error) {
-        console.error("Login failed:", error); // Error handling
+      } catch (e) {
+        setError(e);
       }
     },
     [login, formsValues.password, formsValues.username]
   );
 
+  const handleOnFocus = useCallback(() => {
+    setError("");
+  }, []);
   return (
     <div className="login-wrapper">
       <div className="login">
@@ -58,6 +62,7 @@ const LoginPage = () => {
               name="username"
               handleChange={handleChange}
               label="Username"
+              onFocus={handleOnFocus}
               required
             />
           </div>
@@ -68,9 +73,11 @@ const LoginPage = () => {
               name="password"
               handleChange={handleChange}
               label="Password"
+              onFocus={handleOnFocus}
               required
             />
           </div>
+          {error && <div className="login-err">{error}</div>}
           <div className="action">
             <ButtonComponent size="sm" varient="primary ">
               Login

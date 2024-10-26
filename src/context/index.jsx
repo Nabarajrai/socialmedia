@@ -23,6 +23,7 @@ const DataContextProvider = ({ children }) => {
       return res;
     } catch (error) {
       console.log("Login failed:", error);
+      throw error;
     }
   };
 

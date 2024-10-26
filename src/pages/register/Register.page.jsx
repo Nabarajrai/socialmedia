@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonComponent from "../../components/button/Button.component";
 import CustomInputComponent from "../../components/input/CustomInput.component";
 import { useCallback, useEffect, useState } from "react";
 import { api, APIS } from "../../config/Api.config";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [formValues, setFormValues] = useState({
@@ -14,6 +15,9 @@ const RegisterPage = () => {
   const [errMsg, setErrMsg] = useState("");
   const [data, setData] = useState("");
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const notify = (success) => toast(success);
+
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -36,10 +40,14 @@ const RegisterPage = () => {
       };
       try {
         const res = await api(APIS.register, "POST", body);
-        console.log("response registered", res);
-        setData(res?.data?.message);
+        if (res?.status === 200) {
+          setData(res?.data?.message);
+          notify(res?.data?.message);
+          navigate("/login");
+        }
       } catch (e) {
-        console.log("Error on register", e);
+        setErrMsg(e);
+        setShow(true);
       }
     },
     [
@@ -47,6 +55,7 @@ const RegisterPage = () => {
       formValues.confirmPassword,
       formValues.email,
       formValues.fullName,
+      navigate,
     ]
   );
 
@@ -56,6 +65,7 @@ const RegisterPage = () => {
   const focusInput = useCallback(() => {
     setErrMsg("");
   }, []);
+
   return (
     <div className="register-page">
       <div className="register">

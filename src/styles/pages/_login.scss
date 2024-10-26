@@ -12,6 +12,11 @@
   margin: auto;
   padding: 3rem;
   border-radius: 10px;
+  .login-err {
+    font-size: 0.6rem;
+    color: red;
+    text-align: center;
+  }
 }
 .username {
   margin: 0.5rem 0px;
