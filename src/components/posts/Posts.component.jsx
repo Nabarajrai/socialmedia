@@ -18,7 +18,7 @@ const PostsComponent = ({ data }) => {
   const [newComment, setNewComment] = useState([]);
   const [popup, setPopup] = useState(false);
   const [like, setLike] = useState(false);
-  const { id, name, time, url, cover, description } = data;
+  const { id, username, time, img, cover, description } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,7 +36,6 @@ const PostsComponent = ({ data }) => {
     setNewComment([...newComment, newcomment]);
     setComment("");
   };
-  console.log("handleLike", newComment);
   return (
     <>
       <PostModalComponent active={popup} setActive={setPopup}>
@@ -47,7 +46,7 @@ const PostsComponent = ({ data }) => {
             </div>
             <div className="post-header-description">
               <div className="post-header-description__title">
-                {name} <span>Follow</span>
+                {username} <span>Follow</span>
               </div>
               <div className="post-header-description__time">{timeAgo}</div>
             </div>
@@ -66,9 +65,9 @@ const PostsComponent = ({ data }) => {
             </div>
           )}
 
-          {url && (
+          {img && (
             <div className="post-image">
-              <img src={URL.createObjectURL(url) || avator} alt="avator" />
+              <img src={img || avator} alt="avator" />
             </div>
           )}
           <div className="post-footer">
@@ -177,7 +176,7 @@ const PostsComponent = ({ data }) => {
           </div>
           <div className="post-header-description">
             <div className="post-header-description__title">
-              {name} <span>Follow</span>
+              {username} <span>Follow</span>
             </div>
             <div className="post-header-description__time">{timeAgo}</div>
           </div>
@@ -196,9 +195,9 @@ const PostsComponent = ({ data }) => {
           </div>
         )}
 
-        {url && (
+        {img && (
           <div className="post-image">
-            <img src={URL.createObjectURL(url) || avator} alt="avator" />
+            <img src={img || avator} alt="avator" />
           </div>
         )}
         <div className="post-footer">

@@ -7,35 +7,37 @@ import StoryPage from "../pages/story/Story.page";
 import ProfilePage from "../pages/profile/Profile.page";
 import FriendsPage from "../pages/friends/Friends.page";
 import ForgetPassword from "../pages/forgetPassword/ForgetPassword";
+import ProtectedRoutes from "./Protected.routes";
+import PublicRoutes from "./Public.routes";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <ProtectedRoutes />, // Wrap all protected routes here
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/story/create", element: <StoryPage /> },
+      { path: "/profile", element: <ProfilePage /> },
+      { path: "/friends", element: <FriendsPage /> },
+    ],
   },
   {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
-  {
-    path: "/story/create",
-    element: <StoryPage />,
-  },
-  {
-    path: "/profile",
-    element: <ProfilePage />,
-  },
-  {
-    path: "/friends",
-    element: <FriendsPage />,
-  },
-  {
-    path: "/forget-password",
-    element: <ForgetPassword />,
+    path: "/",
+    element: <PublicRoutes />,
+    children: [
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgetPassword />,
+      },
+    ],
   },
   {
     path: "/*",

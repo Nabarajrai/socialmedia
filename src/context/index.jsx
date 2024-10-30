@@ -7,7 +7,9 @@ export const AllDataContext = createContext({});
 
 const DataContextProvider = ({ children }) => {
   const [story, setStory] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("users")) || null
+  );
 
   const handleUploadStory = useCallback(
     (data) => {

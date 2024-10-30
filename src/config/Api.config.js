@@ -9,4 +9,5 @@ export const APIS = {
   login: "/api/auth/login",
   logout: "/api/auth/logout",
   register: "/api/auth/register",
+  posts: "/api/posts",
 };

@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { AllDataContext } from "../../context";
+
 const SidebarRightomponent = () => {
+  const { currentUser } = useContext(AllDataContext);
   return (
     <div className="right-sidebar-container">
       <div className="right-section-suggestion">
@@ -9,7 +13,7 @@ const SidebarRightomponent = () => {
               <img src="https://i.pravatar.cc/100?img=14" alt="logo" />
             </div>
             <div className="rightSidebar-suggestion__name">
-              <span>nabaraj Rai</span>
+              <span>{currentUser?.data?.username}</span>
             </div>
           </div>
           <div className="rightSidebar-suggestion-right">

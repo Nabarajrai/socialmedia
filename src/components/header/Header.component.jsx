@@ -1,7 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { useState, memo, useCallback, useEffect, useRef, useMemo } from "react";
+import {
+  useState,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useMemo,
+  useContext,
+} from "react";
 import { IoHomeOutline, IoApps, IoPeopleCircleSharp } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { MdOutlineEmail } from "react-icons/md";
@@ -12,6 +20,9 @@ import CustomInputComponent from "../input/CustomInput.component";
 import classnames from "classnames";
 import ButtonComponent from "../button/Button.component";
 import { useNavigate } from "react-router-dom";
+import { api, APIS } from "../../config/Api.config";
+import { toast } from "react-toastify";
+import { AllDataContext } from "../../context";
 
 const HeaderComponent = ({ type }) => {
   const [search, setSearch] = useState("");
@@ -20,7 +31,7 @@ const HeaderComponent = ({ type }) => {
   const dropRef = useRef(null);
   const listRef = useRef(null);
   const navigate = useNavigate();
-
+  const { currentUser } = useContext(AllDataContext);
   const handleChange = useCallback((e) => {
     setSearch(e.target.value);
   }, []);
@@ -31,7 +42,7 @@ const HeaderComponent = ({ type }) => {
   const handleDropdown = useCallback(() => {
     setVisible((prevVisible) => !prevVisible);
   }, []);
-
+  const notify = (message) => toast(message);
   const handleCloseOut = useCallback((event) => {
     if (
       dropRef.current &&
@@ -41,6 +52,20 @@ const HeaderComponent = ({ type }) => {
       setVisible(false);
     }
   }, []);
+  const handleSubmitLogout = useCallback(async () => {
+    try {
+      const res = await api(APIS.logout, "POST");
+      if (res?.status === 200) {
+        localStorage.removeItem("users");
+        notify(res?.data?.message);
+        navigate("/login"); // Redirects to login without reload
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error(err);
+      notify(err);
+    }
+  }, [navigate]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleCloseOut);
@@ -66,7 +91,6 @@ const HeaderComponent = ({ type }) => {
       }
     }
   }, [visible]);
-
   return (
     <header className="header-wrapper">
       <div className="wrapper">
@@ -133,7 +157,9 @@ const HeaderComponent = ({ type }) => {
                   <div className="header-left__icons--profile">
                     <img src={logo} alt="logo" width={100} height={100} />
                   </div>
-                  <div className="header-left__icons--name">Nabaraj</div>
+                  <div className="header-left__icons--name">
+                    {currentUser?.data?.username.split(" ").slice(0, 1)}
+                  </div>
                 </div>
               </div>
             </div>
@@ -157,7 +183,7 @@ const HeaderComponent = ({ type }) => {
               <ButtonComponent
                 varient="primary"
                 size="sm"
-                onClick={() => navigate("/login")}>
+                onClick={handleSubmitLogout}>
                 Logout
               </ButtonComponent>
             </div>

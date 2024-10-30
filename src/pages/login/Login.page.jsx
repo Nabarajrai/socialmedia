@@ -12,7 +12,8 @@ const LoginPage = () => {
     username: "",
     password: "",
   });
-  const { login } = useContext(AllDataContext);
+  const { login, currentUser } = useContext(AllDataContext);
+
   const navigate = useNavigate(); // Use navigate for redirect
   const notify = (success) => toast(success);
 
@@ -38,13 +39,13 @@ const LoginPage = () => {
         const res = await login(body);
         if (res?.status === 200) {
           notify(res?.data?.message);
+          navigate("/"); // Navigate to home page after successful login
         }
-        // navigate("/"); // Navigate to home page after successful login
       } catch (e) {
         setError(e);
       }
     },
-    [login, formsValues.password, formsValues.username]
+    [login, formsValues.password, formsValues.username, navigate]
   );
 
   const handleOnFocus = useCallback(() => {
