@@ -41,7 +41,11 @@ const HomePage = () => {
               <StoryComponent />
             </div>
             <div className="main-content__newPost">
-              <CreatePostComponent setPosts={setPosts} posts={posts} />
+              <CreatePostComponent
+                setPosts={setPosts}
+                posts={posts}
+                fetchPosts={fetchPosts}
+              />
             </div>
             <div className="main-content__post">
               {posts.map((data) => (

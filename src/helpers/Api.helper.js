@@ -1,3 +1,4 @@
+// helpers/Api.helper.js
 import axios from "axios";
 
 export const apiGenerator = ({ baseURL }) => {
@@ -8,7 +9,6 @@ export const apiGenerator = ({ baseURL }) => {
       url,
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
       },
       withCredentials: true,
       ...apiConfig,
@@ -16,8 +16,12 @@ export const apiGenerator = ({ baseURL }) => {
 
     if (body) config.data = body;
 
+    if (body && !(body instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json";
+    }
+
     if (apiConfig?.file) {
-      config.headers["Content-Type"] = "multipart/form-data";
+      delete config.headers["Content-Type"];
     }
 
     try {

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import logo from "../../assets/avator.jpeg";
 import vedio from "../../assets/video.png";
 import picture from "../../assets/picture.png";
@@ -8,31 +8,52 @@ import ModalComponent from "../modal/Modal.component";
 import { useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 import ButtonComponent from "../button/Button.component";
+import { api, APIS } from "../../config/Api.config";
 
-const CreatePostComponent = ({ setPosts, posts }) => {
+const CreatePostComponent = ({ fetchPosts }) => {
   const [file, setFile] = useState(null);
   const [popup, setPopup] = useState(false);
   const [des, setDes] = useState("");
   const ref = useRef(null);
-
+  console.log("file", file);
   const handleFile = () => {
     ref.current.click();
   };
+  const handleUploads = async () => {
+    const formData = new FormData();
+    formData.append("img", file);
+    try {
+      const res = await api(APIS.upload, "POST", formData, { file: true });
+      console.log("upload", res);
+      return res.data;
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
 
-  const handlePost = () => {
-    const newPost = {
-      id: Math.random() * 10,
-      name: "Nabaraj Rai",
-      time: new Date(Date.now()),
-      url: file,
-      cover: "https://i.pravatar.cc/100?img=26",
-      description: des,
+  const handlePost = async () => {
+    const imgUrl = await handleUploads();
+    const body = {
+      desc: des,
+      img: imgUrl || "",
     };
-    setPosts([...posts, newPost]);
+
+    try {
+      const res = await api(APIS.add_post, "POST", body);
+      fetchPosts();
+      console.log("Post created successfully:", res.data);
+    } catch (error) {
+      console.log("Error creating post:", error);
+    }
+
     setPopup(false);
     setFile(null);
     setDes("");
   };
+  const handlePhoto = useCallback((e) => {
+    setFile(e.target.files[0]);
+    ref.current.value = "";
+  }, []);
   return (
     <>
       <ModalComponent active={popup} setActive={setPopup}>
@@ -82,7 +103,7 @@ const CreatePostComponent = ({ setPosts, posts }) => {
                 <input
                   ref={ref}
                   type="file"
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={handlePhoto}
                   style={{ display: "none" }}
                 />
               </div>

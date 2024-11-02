@@ -18,7 +18,7 @@ const PostsComponent = ({ data }) => {
   const [newComment, setNewComment] = useState([]);
   const [popup, setPopup] = useState(false);
   const [like, setLike] = useState(false);
-  const { id, username, time, img, cover, description } = data;
+  const { id, username, time, img, cover, desc } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,7 +38,7 @@ const PostsComponent = ({ data }) => {
   };
   return (
     <>
-      <PostModalComponent active={popup} setActive={setPopup}>
+      {/* <PostModalComponent active={popup} setActive={setPopup}>
         <div className="post-container" key={id}>
           <div className="post-header">
             <div className="post-header-avator">
@@ -59,9 +59,9 @@ const PostsComponent = ({ data }) => {
               </div>
             </div>
           </div>
-          {description && (
+          {desc && (
             <div className="post-description">
-              <p>{description}</p>
+              <p>{desc}</p>
             </div>
           )}
 
@@ -168,7 +168,7 @@ const PostsComponent = ({ data }) => {
             </div>
           </div>
         </div>
-      </PostModalComponent>
+      </PostModalComponent> */}
       <div className="post-container" key={id}>
         <div className="post-header">
           <div className="post-header-avator">
@@ -189,9 +189,9 @@ const PostsComponent = ({ data }) => {
             </div>
           </div>
         </div>
-        {description && (
+        {desc && (
           <div className="post-description">
-            <p>{description}</p>
+            <p>{desc}</p>
           </div>
         )}
 
