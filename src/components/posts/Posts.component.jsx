@@ -11,6 +11,7 @@ import { BiSolidLike } from "react-icons/bi";
 import moment from "moment";
 import PostModalComponent from "../postModal/PostModalComponent";
 import { IoSendSharp } from "react-icons/io5";
+import { api, APIS } from "../../config/Api.config";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
@@ -29,16 +30,28 @@ const PostsComponent = ({ data }) => {
   const handleLike = () => {
     setLike(!like);
   };
-  const handleComment = () => {
-    const newcomment = {
-      newcomment: comment,
-    };
-    setNewComment([...newComment, newcomment]);
+  const handleComment = async (postId) => {
     setComment("");
   };
+  const getComments = async (postId) => {
+    try {
+      const res = await api(`${APIS.comment}?postId=${postId}`);
+      if (res.status === 200) {
+        setNewComment(res.data);
+      } else {
+        console.log("res", res);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getComments(id);
+  }, [id]);
+  console.log("comment", newComment);
   return (
     <>
-      {/* <PostModalComponent active={popup} setActive={setPopup}>
+      <PostModalComponent active={popup} setActive={setPopup}>
         <div className="post-container" key={id}>
           <div className="post-header">
             <div className="post-header-avator">
@@ -121,15 +134,15 @@ const PostsComponent = ({ data }) => {
                         <img src={avator} alt="avator" />
                       </div>
                       <div className="modal-reply-section__des">
-                        <span>Nabaraj Rai</span>
-                        <p>{data.newcomment}</p>
+                        <span>{data.username}</span>
+                        <p>{data.desc}</p>
                       </div>
                     </div>
                   </>
                 );
               })}
 
-              <div className="modal-reply-section">
+              {/* <div className="modal-reply-section">
                 <div className="modal-reply-section__img">
                   <img src={avator} alt="avator" />
                 </div>
@@ -146,7 +159,7 @@ const PostsComponent = ({ data }) => {
                   <span>Nabaraj Rai</span>
                   <p>looking nic sf asd fdsaf sadfe</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -168,7 +181,7 @@ const PostsComponent = ({ data }) => {
             </div>
           </div>
         </div>
-      </PostModalComponent> */}
+      </PostModalComponent>
       <div className="post-container" key={id}>
         <div className="post-header">
           <div className="post-header-avator">

@@ -40,8 +40,10 @@ const CreatePostComponent = ({ fetchPosts }) => {
 
     try {
       const res = await api(APIS.add_post, "POST", body);
-      fetchPosts();
-      console.log("Post created successfully:", res.data);
+      if (res.status === 200) {
+        fetchPosts();
+        console.log("Post created successfully:", res.data);
+      }
     } catch (error) {
       console.log("Error creating post:", error);
     }
