@@ -14,4 +14,8 @@ export const APIS = {
   add_post: "/api/addPost", // Make sure the endpoint matches your backend
   upload: "/api/uploads",
   comment: "/api/comments",
+  addComment: "/api/addComment",
+  like: "/api/likes",
+  addLike: "/api/addLikes",
+  deleteLike: "/api/deleteLikes",
 };

@@ -12,26 +12,69 @@ import moment from "moment";
 import PostModalComponent from "../postModal/PostModalComponent";
 import { IoSendSharp } from "react-icons/io5";
 import { api, APIS } from "../../config/Api.config";
+import { useContext } from "react";
+import { AllDataContext } from "../../context";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
   const [comment, setComment] = useState("");
   const [newComment, setNewComment] = useState([]);
   const [popup, setPopup] = useState(false);
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState([]);
   const { id, username, time, img, cover, desc } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
+  const { currentUser } = useContext(AllDataContext);
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeAgo(moment(time).fromNow());
     }, 1000);
     return () => clearInterval(interval);
   });
-  const handleLike = () => {
-    setLike(!like);
+  const handleLike = async (postId) => {
+    try {
+      const hasUser = like.some(
+        (obj) => obj.likeUserId === currentUser.data.id
+      );
+      if (hasUser) {
+        const res = await api(
+          `${APIS.deleteLike}?likeUserId=${currentUser.data.id}`,
+          "DELETE"
+        );
+        console.log(res);
+      } else {
+        const body = {
+          likeUserId: currentUser.data.id,
+        };
+        const res = await api(
+          `${APIS.addLike}?likePostId=${postId}`,
+          "POST",
+          body
+        );
+        console.log(res);
+      }
+      getLikes(postId);
+    } catch (e) {
+      console.log("e", e);
+    }
   };
   const handleComment = async (postId) => {
-    setComment("");
+    try {
+      const body = {
+        desc: comment,
+        commentUserId: currentUser.data.id,
+        postId: postId,
+      };
+      const res = await api(APIS.addComment, "POST", body);
+      if (res.status === 200) {
+        getComments(postId);
+        console.log("res", res);
+      } else {
+        console.log(res);
+      }
+      setComment("");
+    } catch (e) {
+      console.log("e", e);
+    }
   };
   const getComments = async (postId) => {
     try {
@@ -45,10 +88,24 @@ const PostsComponent = ({ data }) => {
       console.log(e);
     }
   };
+  const getLikes = async (postId) => {
+    try {
+      const res = await api(`${APIS.like}?likePostId=${postId}`);
+      if (res.status === 200) {
+        setLike(res.data);
+      } else {
+        console.log("res", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
   useEffect(() => {
     getComments(id);
+    getLikes(id);
   }, [id]);
-  console.log("comment", newComment);
+  console.log("helow", like);
+  //.includes(currentUser.data.id)
   return (
     <>
       <PostModalComponent active={popup} setActive={setPopup}>
@@ -86,13 +143,13 @@ const PostsComponent = ({ data }) => {
           <div className="post-footer">
             <div className="post-footer-top">
               <div className="post-footer-top__like">
-                <span>{like ? 1 : "No"} Likes</span>
+                <span>{like ? like.length : "No"} Likes</span>
               </div>
               <div className="post-footer-top__right">
                 <div
                   className="post-footer-top__right--comment"
                   onClick={() => setPopup(true)}>
-                  <span>99 comments</span>
+                  <span>{newComment?.length} Comments</span>{" "}
                 </div>
                 <div className="post-footer-top__right--share">
                   <span>10 shares</span>
@@ -100,7 +157,9 @@ const PostsComponent = ({ data }) => {
               </div>
             </div>
             <div className="post-footer-bottom">
-              <div className="post-footer-bottom-like" onClick={handleLike}>
+              <div
+                className="post-footer-bottom-like"
+                onClick={() => handleLike(id)}>
                 <div className="post-footer-bottom-like__icon">
                   {like ? <BiSolidLike /> : <BiLike />}
                 </div>
@@ -129,7 +188,7 @@ const PostsComponent = ({ data }) => {
               {newComment.map((data) => {
                 return (
                   <>
-                    <div className="modal-reply-section">
+                    <div className="modal-reply-section" key={data.id}>
                       <div className="modal-reply-section__img">
                         <img src={avator} alt="avator" />
                       </div>
@@ -175,7 +234,9 @@ const PostsComponent = ({ data }) => {
                   value={comment}
                 />
               </div>
-              <div className="comment-area-text__icon" onClick={handleComment}>
+              <div
+                className="comment-area-text__icon"
+                onClick={() => handleComment(id)}>
                 <IoSendSharp />
               </div>
             </div>
@@ -216,13 +277,13 @@ const PostsComponent = ({ data }) => {
         <div className="post-footer">
           <div className="post-footer-top">
             <div className="post-footer-top__like">
-              <span>{like ? 1 : "No"} Likes</span>
+              <span>{like.length === 0 ? "No" : like.length} Likes</span>
             </div>
             <div className="post-footer-top__right">
               <div
                 className="post-footer-top__right--comment"
                 onClick={() => setPopup(true)}>
-                <span>99 comments</span>
+                <span>{newComment?.length} Comments</span>
               </div>
               <div className="post-footer-top__right--share">
                 <span>10 shares</span>
@@ -230,7 +291,9 @@ const PostsComponent = ({ data }) => {
             </div>
           </div>
           <div className="post-footer-bottom">
-            <div className="post-footer-bottom-like" onClick={handleLike}>
+            <div
+              className="post-footer-bottom-like"
+              onClick={() => handleLike(id)}>
               <div className="post-footer-bottom-like__icon">
                 {like ? <BiSolidLike /> : <BiLike />}
               </div>
