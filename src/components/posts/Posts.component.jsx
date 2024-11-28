@@ -6,7 +6,7 @@ import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { ImCopy } from "react-icons/im";
 import { IoIosShareAlt } from "react-icons/io";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { BiSolidLike } from "react-icons/bi";
 import moment from "moment";
 import PostModalComponent from "../postModal/PostModalComponent";
@@ -14,6 +14,7 @@ import { IoSendSharp } from "react-icons/io5";
 import { api, APIS } from "../../config/Api.config";
 import { useContext } from "react";
 import { AllDataContext } from "../../context";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
@@ -24,6 +25,8 @@ const PostsComponent = ({ data }) => {
   const { id, username, time, img, cover, desc } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
   const { currentUser } = useContext(AllDataContext);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeAgo(moment(time).fromNow());
@@ -40,7 +43,7 @@ const PostsComponent = ({ data }) => {
           `${APIS.deleteLike}?likeUserId=${currentUser.data.id}`,
           "DELETE"
         );
-        console.log(res);
+        console.log("delete likes", res);
       } else {
         const body = {
           likeUserId: currentUser.data.id,
@@ -50,7 +53,7 @@ const PostsComponent = ({ data }) => {
           "POST",
           body
         );
-        console.log(res);
+        console.log("add likes", res);
       }
       getLikes(postId);
     } catch (e) {
@@ -100,6 +103,14 @@ const PostsComponent = ({ data }) => {
       console.log("e", e);
     }
   };
+
+  const navigateToProfile = useCallback(
+    (userName) => {
+      navigate(userName.split(" ").join(".").toLowerCase());
+    },
+    [navigate]
+  );
+
   useEffect(() => {
     getComments(id);
     getLikes(id);
@@ -245,15 +256,18 @@ const PostsComponent = ({ data }) => {
       </PostModalComponent>
       <div className="post-container" key={id}>
         <div className="post-header">
-          <div className="post-header-avator">
-            <img src={cover || avator} alt="avator" />
-          </div>
-          <div className="post-header-description">
-            <div className="post-header-description__title">
-              {username} <span>Follow</span>
+          <div className="post-top" onClick={() => navigateToProfile(username)}>
+            <div className="post-header-avator">
+              <img src={cover || avator} alt="avator" />
             </div>
-            <div className="post-header-description__time">{timeAgo}</div>
+            <div className="post-header-description">
+              <div className="post-header-description__title">
+                {username} <span>Follow</span>
+              </div>
+              <div className="post-header-description__time">{timeAgo}</div>
+            </div>
           </div>
+
           <div className="post-header-action">
             <div className="post-header-action__app">
               <BsThreeDots />

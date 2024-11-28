@@ -5,10 +5,11 @@ import ButtonComponent from "../../components/button/Button.component";
 import { FaCamera, FaPlus } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useState, useCallback, useRef, useMemo } from "react";
+import { useState, useCallback, useRef, useMemo, useContext } from "react";
 import classnames from "classnames";
 import CreatePostComponent from "../../components/createPost/CreatePost.component";
 import PostsComponent from "../../components/posts/Posts.component";
+import { AllDataContext } from "../../context";
 
 const datas = [
   {
@@ -44,6 +45,7 @@ const ProfilePage = () => {
   const coverRef = useRef(null);
   const avatorRef = useRef(null);
   const [posts, setPosts] = useState(datas);
+  const { currentUser } = useContext(AllDataContext);
 
   const handleCoverFile = useCallback((e) => {
     setCoverFile(e.target.files[0]);
@@ -63,7 +65,7 @@ const ProfilePage = () => {
     avatorRef.current.click();
   }, []);
   const profileClassName = classnames("choose-profile", activeClassProfile);
-  console.log("profile", avatorFile);
+  console.log("currentUser", currentUser);
   return (
     <div className="profile-page">
       <LayoutComponent>

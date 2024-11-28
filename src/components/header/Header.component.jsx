@@ -91,6 +91,10 @@ const HeaderComponent = ({ type }) => {
       }
     }
   }, [visible]);
+  console.log(
+    "currentUser",
+    currentUser.data.username.split(" ").join(".").toLowerCase()
+  );
   return (
     <header className="header-wrapper">
       <div className="wrapper">
@@ -169,7 +173,16 @@ const HeaderComponent = ({ type }) => {
               <div className="icons">
                 <IoPeopleCircleSharp />
               </div>
-              <div className="title" onClick={() => navigate("/profile")}>
+              <div
+                className="title"
+                onClick={() =>
+                  navigate(
+                    `/${currentUser.data.username
+                      .split(" ")
+                      .join(".")
+                      .toLowerCase()}`
+                  )
+                }>
                 Profile
               </div>
             </div>
