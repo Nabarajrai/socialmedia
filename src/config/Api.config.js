@@ -18,4 +18,8 @@ export const APIS = {
   like: "/api/likes",
   addLike: "/api/addLikes",
   deleteLike: "/api/deleteLikes",
+  getUser: "/api/find",
+  getRelationship: "/api/relationships",
+  addRelationship: "/api/addRelationship",
+  deleteRelationship: "/api/deleteRelationship",
 };

@@ -106,6 +106,41 @@
         }
       }
     }
+    .add-action {
+      @include flex($justify: flex-end);
+      gap: 0.5rem;
+      width: 100%;
+      &__message {
+        width: 50%;
+        @include flex($justify: center);
+        .sms-icon {
+          @include flex($justify: center);
+          margin-right: 0.4rem;
+          height: 1.8rem;
+          width: 0.8rem;
+          svg {
+            width: 100%;
+            path {
+              color: $pri;
+            }
+          }
+        }
+      }
+      &__follow {
+        @include flex($justify: center);
+        width: 50%;
+        .follow-icon {
+          @include flex($justify: center);
+          margin-right: 0.4rem;
+          height: 1.8rem;
+          width: 0.8rem;
+          svg {
+            width: 100%;
+            fill: $pri;
+          }
+        }
+      }
+    }
     .edit-profile {
       width: 50%;
       .edit {

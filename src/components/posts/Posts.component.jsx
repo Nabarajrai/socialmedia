@@ -22,7 +22,7 @@ const PostsComponent = ({ data }) => {
   const [newComment, setNewComment] = useState([]);
   const [popup, setPopup] = useState(false);
   const [like, setLike] = useState([]);
-  const { id, username, time, img, cover, desc } = data;
+  const { id, username, time, img, cover, desc, userId } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
   const { currentUser } = useContext(AllDataContext);
   const navigate = useNavigate();
@@ -105,8 +105,9 @@ const PostsComponent = ({ data }) => {
   };
 
   const navigateToProfile = useCallback(
-    (userName) => {
-      navigate(userName.split(" ").join(".").toLowerCase());
+    (userName, id) => {
+      const userNameId = `${userName} ${id}`;
+      navigate(userNameId.split(" ").join(".").toLowerCase());
     },
     [navigate]
   );
@@ -115,7 +116,6 @@ const PostsComponent = ({ data }) => {
     getComments(id);
     getLikes(id);
   }, [id]);
-  console.log("helow", like);
   //.includes(currentUser.data.id)
   return (
     <>
@@ -198,7 +198,7 @@ const PostsComponent = ({ data }) => {
             <div className="modal-reply">
               {newComment.map((data) => {
                 return (
-                  <>
+                  <div key={data.id}>
                     <div className="modal-reply-section" key={data.id}>
                       <div className="modal-reply-section__img">
                         <img src={avator} alt="avator" />
@@ -208,7 +208,7 @@ const PostsComponent = ({ data }) => {
                         <p>{data.desc}</p>
                       </div>
                     </div>
-                  </>
+                  </div>
                 );
               })}
 
@@ -256,7 +256,9 @@ const PostsComponent = ({ data }) => {
       </PostModalComponent>
       <div className="post-container" key={id}>
         <div className="post-header">
-          <div className="post-top" onClick={() => navigateToProfile(username)}>
+          <div
+            className="post-top"
+            onClick={() => navigateToProfile(username, userId)}>
             <div className="post-header-avator">
               <img src={cover || avator} alt="avator" />
             </div>

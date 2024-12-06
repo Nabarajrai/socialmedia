@@ -32,6 +32,8 @@ const HeaderComponent = ({ type }) => {
   const listRef = useRef(null);
   const navigate = useNavigate();
   const { currentUser } = useContext(AllDataContext);
+  const userNameId = currentUser.data.username + " " + currentUser.data.id;
+
   const handleChange = useCallback((e) => {
     setSearch(e.target.value);
   }, []);
@@ -91,10 +93,7 @@ const HeaderComponent = ({ type }) => {
       }
     }
   }, [visible]);
-  console.log(
-    "currentUser",
-    currentUser.data.username.split(" ").join(".").toLowerCase()
-  );
+
   return (
     <header className="header-wrapper">
       <div className="wrapper">
@@ -177,10 +176,7 @@ const HeaderComponent = ({ type }) => {
                 className="title"
                 onClick={() =>
                   navigate(
-                    `/${currentUser.data.username
-                      .split(" ")
-                      .join(".")
-                      .toLowerCase()}`
+                    `/${userNameId.split(" ").join(".").toLocaleLowerCase()}`
                   )
                 }>
                 Profile

@@ -4,12 +4,22 @@ import logo from "../../assets/1.png";
 import ButtonComponent from "../../components/button/Button.component";
 import { FaCamera, FaPlus } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { useState, useCallback, useRef, useMemo, useContext } from "react";
+import { FiMessageCircle } from "react-icons/fi";
+import { SlUserFollow } from "react-icons/sl";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+  useContext,
+  useEffect,
+} from "react";
 import classnames from "classnames";
 import CreatePostComponent from "../../components/createPost/CreatePost.component";
 import PostsComponent from "../../components/posts/Posts.component";
 import { AllDataContext } from "../../context";
+import { api, APIS } from "../../config/Api.config";
 
 const datas = [
   {
@@ -40,12 +50,15 @@ const datas = [
 const ProfilePage = () => {
   const [coverFile, setCoverFile] = useState(null);
   const [avatorFile, setAvatorFile] = useState(null);
+  const [relationship, setRelationship] = useState(null);
   const [active, setActive] = useState(false);
+  const [userProfiles, setUserProfiles] = useState([]);
   const navigate = useNavigate();
   const coverRef = useRef(null);
   const avatorRef = useRef(null);
   const [posts, setPosts] = useState(datas);
   const { currentUser } = useContext(AllDataContext);
+  const location = useLocation();
 
   const handleCoverFile = useCallback((e) => {
     setCoverFile(e.target.files[0]);
@@ -65,16 +78,81 @@ const ProfilePage = () => {
     avatorRef.current.click();
   }, []);
   const profileClassName = classnames("choose-profile", activeClassProfile);
-  console.log("currentUser", currentUser);
+
+  const getUserDetials = async (userId) => {
+    try {
+      const res = await api(`${APIS.getUser}/${userId}`);
+      if (res.status === 200) {
+        setUserProfiles(res?.data);
+      } else {
+        console.log("res", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
+
+  const getRelationshipsData = async (userId) => {
+    try {
+      const res = await api(`${APIS.getRelationship}?followedId=${userId}`);
+      if (res.status === 200) {
+        setRelationship(res?.data);
+      } else {
+        console.log("relationship data", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
+
+  const addRelationships = async (userId) => {
+    try {
+      const res = await api(
+        `${APIS.addRelationship}?followedId=${userId}`,
+        "POST"
+      );
+      if (res.status === 200) {
+        console.log("res", res);
+        getRelationshipsData(
+          location.pathname.split(".").splice(2, 1).join("")
+        );
+      } else {
+        console.log("res", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
+
+  const removeRelationships = async (userId) => {
+    try {
+      const res = await api(
+        `${APIS.deleteRelationship}?followedId=${userId}`,
+        "DELETE"
+      );
+      if (res.status === 200) {
+        console.log("res", res);
+        getRelationshipsData(
+          location.pathname.split(".").splice(2, 1).join("")
+        );
+      } else {
+        console.log("res", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
+  useEffect(() => {
+    getUserDetials(location.pathname.split(".").splice(2, 1).join(""));
+    getRelationshipsData(location.pathname.split(".").splice(2, 1).join(""));
+  }, [location.pathname]);
   return (
     <div className="profile-page">
       <LayoutComponent>
         <div className="page-avator">
           <div className="cover-section">
             <div className="cover">
-              {coverFile && (
-                <img src={URL.createObjectURL(coverFile)} alt="img" />
-              )}
+              <img src={userProfiles.coverpic} alt="img" />
             </div>
             <div className="action">
               <ButtonComponent
@@ -95,14 +173,15 @@ const ProfilePage = () => {
                 <div
                   className="profile-logo"
                   onClick={() => setActive(!active)}>
-                  {avatorFile ? (
-                    <img src={URL.createObjectURL(avatorFile)} alt="img" />
-                  ) : (
-                    <img src={logo} alt="logo" width={100} height={100} />
-                  )}
+                  <img
+                    src={userProfiles.profilePic}
+                    alt="logo"
+                    width={100}
+                    height={100}
+                  />
                 </div>
                 <div className="user-details">
-                  <div className="user-name">nabaraj Rai</div>
+                  <div className="user-name">{userProfiles?.username}</div>
                   <div className="user-friends">24 friends</div>
                   <div className="friends-avator">
                     <div className="avator">
@@ -131,25 +210,70 @@ const ProfilePage = () => {
             </div>
 
             <div className="profile-left">
-              <div className="add-story">
-                <ButtonComponent
-                  size="sm"
-                  varient="primary"
-                  onClick={() => navigate("/story/create")}>
-                  <div className="plus">
-                    <FaPlus />
+              {userProfiles?.id === currentUser?.data.id ? (
+                <>
+                  <div className="add-story">
+                    <ButtonComponent
+                      size="sm"
+                      varient="primary"
+                      onClick={() => navigate("/story/create")}>
+                      <div className="plus">
+                        <FaPlus />
+                      </div>
+                      Add Story
+                    </ButtonComponent>
                   </div>
-                  Add Story
-                </ButtonComponent>
-              </div>
-              <div className="edit-profile">
-                <ButtonComponent size="sm" varient="secondary">
-                  <div className="edit">
-                    <MdEdit />
+                  <div className="edit-profile">
+                    <ButtonComponent size="sm" varient="secondary">
+                      <div className="edit">
+                        <MdEdit />
+                      </div>
+                      Edit Profile
+                    </ButtonComponent>
                   </div>
-                  Edit Profile
-                </ButtonComponent>
-              </div>
+                </>
+              ) : (
+                <div className="add-action">
+                  <div className="add-action__message">
+                    <ButtonComponent size="sm" varient="primary">
+                      <div className="sms-icon">
+                        <FiMessageCircle />
+                      </div>
+                      Message
+                    </ButtonComponent>
+                  </div>
+                  <div className="add-action__follow">
+                    {relationship &&
+                    relationship.includes(currentUser?.data?.id) ? (
+                      <ButtonComponent
+                        size="sm"
+                        varient="secondary"
+                        onClick={() => removeRelationships(userProfiles?.id)}>
+                        <div className="follow-icon">
+                          <SlUserFollow />
+                        </div>
+                        Unfollow
+                      </ButtonComponent>
+                    ) : (
+                      <ButtonComponent
+                        size="sm"
+                        varient="secondary"
+                        onClick={() => addRelationships(userProfiles?.id)}>
+                        <div className="follow-icon">
+                          <SlUserFollow />
+                        </div>
+                        Followed
+                      </ButtonComponent>
+                    )}
+                    {/* <ButtonComponent size="sm" varient="secondary">
+                      <div className="follow-icon">
+                        <SlUserFollow />
+                      </div>
+                      Follow
+                    </ButtonComponent> */}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
