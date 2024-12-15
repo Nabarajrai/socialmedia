@@ -61,7 +61,6 @@ const CreateRightSidebar = ({
     },
     [text]
   );
-  console.log("text", storyText);
   return (
     <>
       <ModalComponent active={popup} setActive={handleOpens}>

@@ -29,7 +29,6 @@ const HomePage = () => {
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
-  console.log("posts", posts);
   return (
     <div className="home-page-setion">
       <LayoutComponent>

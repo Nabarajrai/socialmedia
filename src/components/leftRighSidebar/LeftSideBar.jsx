@@ -24,8 +24,6 @@ const LeftSideBar = ({
   const heightRef = useRef(null);
   const contentRef = useRef(null);
 
-  console.log("height", text?.split(" ").length, showNumber);
-
   const handlePhoto = useCallback(() => {
     ref.current.click();
   }, [ref]);

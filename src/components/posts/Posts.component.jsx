@@ -22,7 +22,7 @@ const PostsComponent = ({ data }) => {
   const [newComment, setNewComment] = useState([]);
   const [popup, setPopup] = useState(false);
   const [like, setLike] = useState([]);
-  const { id, username, time, img, cover, desc, userId } = data;
+  const { id, username, time, img, desc, userId, profilePic } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
   const { currentUser } = useContext(AllDataContext);
   const navigate = useNavigate();
@@ -123,7 +123,7 @@ const PostsComponent = ({ data }) => {
         <div className="post-container" key={id}>
           <div className="post-header">
             <div className="post-header-avator">
-              <img src={cover || avator} alt="avator" />
+              <img src={profilePic} alt="avator" />
             </div>
             <div className="post-header-description">
               <div className="post-header-description__title">
@@ -260,7 +260,7 @@ const PostsComponent = ({ data }) => {
             className="post-top"
             onClick={() => navigateToProfile(username, userId)}>
             <div className="post-header-avator">
-              <img src={cover || avator} alt="avator" />
+              <img src={profilePic} alt="avator" />
             </div>
             <div className="post-header-description">
               <div className="post-header-description__title">

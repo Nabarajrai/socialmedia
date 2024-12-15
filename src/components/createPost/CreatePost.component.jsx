@@ -15,7 +15,6 @@ const CreatePostComponent = ({ fetchPosts }) => {
   const [popup, setPopup] = useState(false);
   const [des, setDes] = useState("");
   const ref = useRef(null);
-  console.log("file", file);
   const handleFile = () => {
     ref.current.click();
   };
@@ -24,7 +23,6 @@ const CreatePostComponent = ({ fetchPosts }) => {
     formData.append("img", file);
     try {
       const res = await api(APIS.upload, "POST", formData, { file: true });
-      console.log("upload", res);
       return res.data;
     } catch (e) {
       console.log("e", e);
@@ -42,7 +40,6 @@ const CreatePostComponent = ({ fetchPosts }) => {
       const res = await api(APIS.add_post, "POST", body);
       if (res.status === 200) {
         fetchPosts();
-        console.log("Post created successfully:", res.data);
       }
     } catch (error) {
       console.log("Error creating post:", error);

@@ -33,26 +33,12 @@
   @include flex($justify: space-between);
   gap: 0.6rem;
   font-size: 0.7rem;
-  .rightSidebar-follow {
-    background-color: $blue;
-    color: $pri;
-    padding: 0.3rem 0.6rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.45s ease;
-    &:hover {
-      background-color: rgba($blue, 0.8);
-    }
-  }
-  .rightSidebar-dismiss {
-    background-color: rgba($sec, 0.5);
-    color: $pri;
-    padding: 0.3rem 0.6rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.45s ease;
-    &:hover {
-      background-color: rgba($sec, 0.4);
+  width: 40%;
+  .follow-icon {
+    margin-right: 0.4rem;
+    svg {
+      fill: $pri;
+      font-weight: bold;
     }
   }
 }

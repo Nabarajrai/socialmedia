@@ -49,7 +49,6 @@ const StoryComponent = () => {
   }, [ref]);
 
   const { story } = useContext(AllDataContext);
-  console.log("story", story);
 
   return (
     <div className="story-container">
@@ -106,7 +105,7 @@ const StoryComponent = () => {
         {story &&
           story.map((data) => {
             return (
-              <>
+              <div key={data.id}>
                 <div className="story-section-reels">
                   <div className="story-section-reels__img">
                     {data.image ? (
@@ -128,7 +127,7 @@ const StoryComponent = () => {
                     <span>Nabaraj Rai</span>
                   </div>
                 </div>
-              </>
+              </div>
             );
           })}
 

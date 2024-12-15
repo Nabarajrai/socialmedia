@@ -53,6 +53,7 @@ const ProfilePage = () => {
   const [relationship, setRelationship] = useState(null);
   const [active, setActive] = useState(false);
   const [userProfiles, setUserProfiles] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
   const navigate = useNavigate();
   const coverRef = useRef(null);
   const avatorRef = useRef(null);
@@ -142,9 +143,26 @@ const ProfilePage = () => {
       console.log("e", e);
     }
   };
+
+  const getUserPosts = async (userId) => {
+    try {
+      const res = await api(`${APIS.getUserPosts}/${userId}`);
+      if (res.status === 200) {
+        setUserPosts(res?.data);
+      } else {
+        console.log("res", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
+
+  console.log(relationship);
+
   useEffect(() => {
     getUserDetials(location.pathname.split(".").splice(2, 1).join(""));
     getRelationshipsData(location.pathname.split(".").splice(2, 1).join(""));
+    getUserPosts(location.pathname.split(".").splice(2, 1).join(""));
   }, [location.pathname]);
   return (
     <div className="profile-page">
@@ -293,7 +311,7 @@ const ProfilePage = () => {
               <CreatePostComponent setPosts={setPosts} posts={posts} />
             </div>
             <div className="posts">
-              {posts.map((data) => (
+              {userPosts.map((data) => (
                 <PostsComponent data={data} key={data.id} />
               ))}
             </div>
