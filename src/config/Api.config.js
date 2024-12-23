@@ -24,4 +24,5 @@ export const APIS = {
   deleteRelationship: "/api/deleteRelationship",
   getUserPosts: "/api/userPosts",
   getSuggestions: "/api/suggestions",
+  deletePost: "/api/deletePosts",
 };

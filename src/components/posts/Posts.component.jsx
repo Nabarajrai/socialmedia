@@ -6,7 +6,7 @@ import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { ImCopy } from "react-icons/im";
 import { IoIosShareAlt } from "react-icons/io";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { BiSolidLike } from "react-icons/bi";
 import moment from "moment";
 import PostModalComponent from "../postModal/PostModalComponent";
@@ -15,6 +15,9 @@ import { api, APIS } from "../../config/Api.config";
 import { useContext } from "react";
 import { AllDataContext } from "../../context";
 import { useNavigate } from "react-router-dom";
+import { FaEdit } from "react-icons/fa";
+import classnames from "classnames";
+import { useRef } from "react";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
@@ -25,7 +28,40 @@ const PostsComponent = ({ data }) => {
   const { id, username, time, img, desc, userId, profilePic } = data;
   const [timeAgo, setTimeAgo] = useState(moment(time).fromNow());
   const { currentUser } = useContext(AllDataContext);
+  const [relationship, setRelationship] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const editRef = useRef(null);
+  const listEditRef = useRef(null);
   const navigate = useNavigate();
+
+  const toggleClassName = visible ? "block" : "none";
+  const combineClassName = useMemo(() => {
+    return classnames("post-header-action__app--modal", toggleClassName);
+  }, [toggleClassName]);
+
+  const handleCloseOutside = useCallback(
+    (event) => {
+      if (visible) {
+        if (
+          editRef.current &&
+          !editRef.current.contains(event.target) &&
+          !listEditRef.current.contains(event.target)
+        ) {
+          setVisible(false);
+        }
+      }
+    },
+    [visible]
+  );
+
+  const handleToggleClassName = useCallback(() => {
+    setVisible(!visible);
+  }, [visible]);
+  const followingStatus = relationship?.includes(userId)
+    ? "Following"
+    : "Follow";
+  const relationShipStatus =
+    currentUser?.data?.id === userId ? "" : followingStatus;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -112,11 +148,44 @@ const PostsComponent = ({ data }) => {
     [navigate]
   );
 
+  const getRelationshipsData = async (userId) => {
+    try {
+      const res = await api(`${APIS.getRelationship}?followerId=${userId}`);
+      if (res.status === 200) {
+        setRelationship(res?.data);
+      } else {
+        console.log("relationship data", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  };
+
+  const handleDeletePost = useCallback(async (postId) => {
+    try {
+      const res = await api(`${APIS.deletePost}/${postId}`, "DELETE");
+      if (res.status === 200) {
+        console.log("delete post", res);
+      }
+    } catch (e) {
+      console.log("e", e);
+    }
+  }, []);
+
   useEffect(() => {
     getComments(id);
     getLikes(id);
   }, [id]);
-  //.includes(currentUser.data.id)
+
+  useEffect(() => {
+    getRelationshipsData(currentUser?.data?.id);
+  }, [currentUser]);
+  useEffect(() => {
+    document.addEventListener("mousedown", handleCloseOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleCloseOutside);
+    };
+  }, [handleCloseOutside]);
   return (
     <>
       <PostModalComponent active={popup} setActive={setPopup}>
@@ -127,7 +196,8 @@ const PostsComponent = ({ data }) => {
             </div>
             <div className="post-header-description">
               <div className="post-header-description__title">
-                {username} <span>Follow</span>
+                {username}
+                <span>{relationShipStatus}</span>
               </div>
               <div className="post-header-description__time">{timeAgo}</div>
             </div>
@@ -135,9 +205,11 @@ const PostsComponent = ({ data }) => {
               <div className="post-header-action__app">
                 <BsThreeDots />
               </div>
-              <div className="post-header-action__delete">
-                <MdOutlineDelete />
-              </div>
+              {currentUser?.data?.id === userId && (
+                <div className="post-header-action__delete">
+                  <MdOutlineDelete />
+                </div>
+              )}
             </div>
           </div>
           {desc && (
@@ -264,7 +336,8 @@ const PostsComponent = ({ data }) => {
             </div>
             <div className="post-header-description">
               <div className="post-header-description__title">
-                {username} <span>Follow</span>
+                {username}
+                <span>{relationShipStatus}</span>
               </div>
               <div className="post-header-description__time">{timeAgo}</div>
             </div>
@@ -272,11 +345,40 @@ const PostsComponent = ({ data }) => {
 
           <div className="post-header-action">
             <div className="post-header-action__app">
-              <BsThreeDots />
+              <div
+                className="post-header-action__app--icon"
+                onClick={handleToggleClassName}
+                ref={editRef}>
+                <BsThreeDots />
+              </div>
+              <div className={combineClassName} ref={listEditRef}>
+                <div className="edit-section">
+                  <div className="icon">
+                    <FaEdit />
+                  </div>
+                  {currentUser?.data?.id === userId ? (
+                    <div
+                      className="editPost"
+                      onClick={() => navigateToProfile(username, userId)}>
+                      Edit
+                    </div>
+                  ) : (
+                    <div
+                      className="managePost"
+                      onClick={() => navigateToProfile(username, userId)}>
+                      Manage Post
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="post-header-action__delete">
-              <MdOutlineDelete />
-            </div>
+            {currentUser?.data?.id === userId && (
+              <div
+                className="post-header-action__delete"
+                onClick={() => handleDeletePost(id)}>
+                <MdOutlineDelete />
+              </div>
+            )}
           </div>
         </div>
         {desc && (

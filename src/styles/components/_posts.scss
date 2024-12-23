@@ -42,15 +42,89 @@
   margin-left: auto;
   &__app {
     @include flex($justify: center);
-    width: 1.8rem;
-    height: 1.8rem;
-    font-size: 1.3rem;
-    padding: 0.4rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.45s ease-out;
-    &:hover {
-      background-color: rgba($sec, 0.2);
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    &--icon {
+      @include flex($justify: center);
+      position: relative;
+      width: 1.8rem;
+      height: 1.8rem;
+      font-size: 1.3rem;
+      padding: 0.4rem;
+      border-radius: 50%;
+      z-index: 1;
+      cursor: pointer;
+      transition: all 0.45s ease-out;
+      &:hover {
+        background-color: rgba($sec, 0.2);
+      }
+    }
+    &--modal {
+      @include flex($justify: flex-start);
+      gap: 0.5rem;
+      position: absolute;
+      top: 1.5rem;
+      right: 0rem;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+      background-color: $pri;
+      width: 320px;
+      height: 50px;
+      border-radius: 10px 0px 10px 10px;
+      padding: 0.3rem;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 2;
+      transition: 0.45s all ease-in-out;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 98%;
+        right: -0.2rem;
+        margin-left: -15px;
+        border-width: 9px;
+        border-style: solid;
+        border-color: $pri transparent transparent transparent;
+        transform: rotate(190deg);
+      }
+      &.block {
+        opacity: 1;
+        visibility: visible;
+      }
+      &.none {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .edit-section {
+        @include flex($justify: flex-start);
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.6rem 0.8rem;
+        border-radius: 10px;
+        transition: all 0.45s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba($sec, 0.1);
+        }
+        .icon {
+          @include flex($justify: flex-start);
+          font-size: 0.8rem;
+        }
+        .editPost {
+          @include flex($justify: flex-start);
+          font-size: 0.8rem;
+        }
+        .managePost {
+          @include flex($justify: flex-start);
+          font-size: 0.8rem;
+        }
+      }
     }
   }
   &__delete {

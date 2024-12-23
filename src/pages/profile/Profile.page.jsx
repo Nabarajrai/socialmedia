@@ -95,7 +95,7 @@ const ProfilePage = () => {
 
   const getRelationshipsData = async (userId) => {
     try {
-      const res = await api(`${APIS.getRelationship}?followedId=${userId}`);
+      const res = await api(`${APIS.getRelationship}?followerId=${userId}`);
       if (res.status === 200) {
         setRelationship(res?.data);
       } else {
@@ -114,9 +114,7 @@ const ProfilePage = () => {
       );
       if (res.status === 200) {
         console.log("res", res);
-        getRelationshipsData(
-          location.pathname.split(".").splice(2, 1).join("")
-        );
+        getRelationshipsData(currentUser?.data?.id);
       } else {
         console.log("res", res);
       }
@@ -133,9 +131,7 @@ const ProfilePage = () => {
       );
       if (res.status === 200) {
         console.log("res", res);
-        getRelationshipsData(
-          location.pathname.split(".").splice(2, 1).join("")
-        );
+        getRelationshipsData(currentUser?.data?.id);
       } else {
         console.log("res", res);
       }
@@ -157,13 +153,15 @@ const ProfilePage = () => {
     }
   };
 
-  console.log(relationship);
+  console.log("relationship", relationship);
 
   useEffect(() => {
     getUserDetials(location.pathname.split(".").splice(2, 1).join(""));
-    getRelationshipsData(location.pathname.split(".").splice(2, 1).join(""));
     getUserPosts(location.pathname.split(".").splice(2, 1).join(""));
   }, [location.pathname]);
+  useEffect(() => {
+    getRelationshipsData(currentUser?.data?.id);
+  }, [currentUser, location.pathname]);
   return (
     <div className="profile-page">
       <LayoutComponent>
@@ -261,8 +259,7 @@ const ProfilePage = () => {
                     </ButtonComponent>
                   </div>
                   <div className="add-action__follow">
-                    {relationship &&
-                    relationship.includes(currentUser?.data?.id) ? (
+                    {relationship && relationship.includes(userProfiles?.id) ? (
                       <ButtonComponent
                         size="sm"
                         varient="secondary"
