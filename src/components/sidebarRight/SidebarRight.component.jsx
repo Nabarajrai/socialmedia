@@ -76,7 +76,6 @@ const SidebarRightomponent = () => {
     getRelationshipsData(currentUser?.data?.id);
   }, [currentUser]);
 
-  console.log("relationship", relationship);
   return (
     <div className="right-sidebar-container">
       <div className="right-section-suggestion">

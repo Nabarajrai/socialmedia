@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineDelete } from "react-icons/md";
@@ -14,10 +15,10 @@ import { IoSendSharp } from "react-icons/io5";
 import { api, APIS } from "../../config/Api.config";
 import { useContext } from "react";
 import { AllDataContext } from "../../context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import classnames from "classnames";
-import { useRef } from "react";
+import { useRef, memo } from "react";
 
 // eslint-disable-next-line no-unused-vars
 const PostsComponent = ({ data }) => {
@@ -33,12 +34,11 @@ const PostsComponent = ({ data }) => {
   const editRef = useRef(null);
   const listEditRef = useRef(null);
   const navigate = useNavigate();
-
+  const location = useLocation();
   const toggleClassName = visible ? "block" : "none";
   const combineClassName = useMemo(() => {
     return classnames("post-header-action__app--modal", toggleClassName);
   }, [toggleClassName]);
-
   const handleCloseOutside = useCallback(
     (event) => {
       if (visible) {
@@ -68,7 +68,7 @@ const PostsComponent = ({ data }) => {
       setTimeAgo(moment(time).fromNow());
     }, 1000);
     return () => clearInterval(interval);
-  });
+  }, [time]);
   const handleLike = async (postId) => {
     try {
       const hasUser = like.some(
@@ -143,11 +143,13 @@ const PostsComponent = ({ data }) => {
   const navigateToProfile = useCallback(
     (userName, id) => {
       const userNameId = `${userName} ${id}`;
-      navigate(userNameId.split(" ").join(".").toLowerCase());
+      const userRouteId = location.pathname.split(".").pop();
+      if (id !== Number(userRouteId)) {
+        navigate(userNameId.split(" ").join(".").toLowerCase());
+      }
     },
-    [navigate]
+    [navigate, location.pathname]
   );
-
   const getRelationshipsData = async (userId) => {
     try {
       const res = await api(`${APIS.getRelationship}?followerId=${userId}`);
@@ -160,17 +162,32 @@ const PostsComponent = ({ data }) => {
       console.log("e", e);
     }
   };
-
-  const handleDeletePost = useCallback(async (postId) => {
+  const handleDeleteFile = useCallback(async (imgName) => {
+    const body = {
+      filePath: imgName,
+    };
+    if (!imgName) return;
     try {
-      const res = await api(`${APIS.deletePost}/${postId}`, "DELETE");
-      if (res.status === 200) {
-        console.log("delete post", res);
-      }
+      const res = await api(APIS.deleteFiles, "DELETE", body);
+      console.log("delete file", res);
     } catch (e) {
-      console.log("e", e);
+      console.log(e);
     }
   }, []);
+  const handleDeletePost = useCallback(
+    async (postId, imgPath) => {
+      try {
+        const res = await api(`${APIS.deletePost}/${postId}`, "DELETE");
+        if (res.status === 200) {
+          handleDeleteFile(imgPath.split("/").pop());
+          console.log("delete post", imgPath.split("/").pop());
+        }
+      } catch (e) {
+        console.log("e", e);
+      }
+    },
+    [handleDeleteFile]
+  );
 
   useEffect(() => {
     getComments(id);
@@ -375,7 +392,7 @@ const PostsComponent = ({ data }) => {
             {currentUser?.data?.id === userId && (
               <div
                 className="post-header-action__delete"
-                onClick={() => handleDeletePost(id)}>
+                onClick={() => handleDeletePost(id, img)}>
                 <MdOutlineDelete />
               </div>
             )}
@@ -444,4 +461,4 @@ const PostsComponent = ({ data }) => {
   );
 };
 
-export default PostsComponent;
+export default memo(PostsComponent);

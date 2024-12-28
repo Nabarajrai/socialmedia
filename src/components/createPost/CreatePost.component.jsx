@@ -21,6 +21,7 @@ const CreatePostComponent = ({ fetchPosts }) => {
   const handleUploads = async () => {
     const formData = new FormData();
     formData.append("img", file);
+    if (!file) return;
     try {
       const res = await api(APIS.upload, "POST", formData, { file: true });
       return res.data;
