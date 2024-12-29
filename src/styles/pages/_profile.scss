@@ -238,3 +238,134 @@
     flex-basis: 60%;
   }
 }
+.edit-profile-container {
+  @include flex($justify: center);
+  gap: 1rem;
+  flex-direction: column;
+  padding: 1rem;
+  .edit-profile-avator {
+    &__title {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem;
+    }
+    &__img {
+      position: relative;
+      width: 8.25rem;
+      height: 8.25rem;
+      cursor: pointer;
+      img {
+        @include image();
+        border-radius: 50%;
+      }
+      &--section {
+        width: 8.25rem;
+        height: 8.25rem;
+        cursor: pointer;
+        img {
+          @include image();
+          border-radius: 50%;
+        }
+        .icon {
+          @include flex($justify: center);
+          position: absolute;
+          top: 10px;
+          right: 0;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          z-index: 1;
+          cursor: pointer;
+          transition: all 0.45s ease-out;
+          &:hover {
+            background-color: rgba($red, 0.3);
+          }
+          svg {
+            fill: $red;
+          }
+        }
+      }
+      &--input {
+        display: none;
+      }
+    }
+  }
+  .edit-profile-coverpic {
+    &__title {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem;
+    }
+    &__img {
+      position: relative;
+      width: 20.25rem;
+      height: 9.25rem;
+      cursor: pointer;
+      img {
+        @include image();
+        border-radius: 10px;
+      }
+      &--section {
+        width: 20.25rem;
+        height: 9.25rem;
+        cursor: pointer;
+        img {
+          @include image();
+          border-radius: 10px;
+        }
+        .icon {
+          @include flex($justify: center);
+          position: absolute;
+          top: 0px;
+          right: 0;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          z-index: 1;
+          cursor: pointer;
+          transition: all 0.45s ease-out;
+          &:hover {
+            background-color: rgba($red, 0.3);
+          }
+          svg {
+            fill: $red;
+          }
+        }
+      }
+      &--input {
+        display: none;
+      }
+    }
+  }
+  .edit-profile-name {
+    &__title {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem;
+    }
+    &__input {
+      input {
+        height: 100%;
+        width: 100%;
+        padding: 0.3rem;
+        border-bottom: 1.5px solid rgba($sec, 0.6);
+        font-size: 0.8rem;
+      }
+    }
+  }
+  .edit-profile-action {
+    @include flex($justify: space-between);
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0 0.8rem;
+    &__cancel {
+      width: 30%;
+    }
+    &__submit {
+      width: 30%;
+    }
+  }
+}

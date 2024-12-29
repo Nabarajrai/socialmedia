@@ -51,4 +51,11 @@
     padding: 0.5rem 0;
     font-size: 0.7rem;
   }
+  &.btn-danger {
+    background-color: rgba($red, 0.8);
+    color: $pri;
+    &:hover {
+      background-color: rgba($red, 1);
+    }
+  }
 }
