@@ -320,6 +320,12 @@ const ProfilePage = () => {
     setName(userProfiles?.username);
   }, [userProfiles.username]);
 
+  useEffect(() => {
+    if (avatorFile) {
+      setActive(false);
+    }
+  }, [avatorFile]);
+
   return (
     <>
       <ModalComponent active={openModal} setActive={setOpenModal}>
@@ -474,8 +480,11 @@ const ProfilePage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className={profileClassName} ref={avatorParentRef}>
-                    <div className="choose-top" onClick={handleAvatorFile}>
+                  <div
+                    className={profileClassName}
+                    ref={avatorParentRef}
+                    onClick={handleAvatorFile}>
+                    <div className="choose-top">
                       <div className="icon">
                         <FaCamera />
                       </div>

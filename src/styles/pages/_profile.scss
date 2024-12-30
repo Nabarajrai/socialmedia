@@ -165,6 +165,7 @@
       padding: 0.3rem;
       border-radius: 10px;
       display: none;
+      z-index: 2;
       cursor: pointer;
       .choose-title {
         color: $pri;
@@ -176,6 +177,7 @@
         padding: 0.3rem 0.5rem;
         border-radius: 5px;
         transition: all 0.5s ease;
+        z-index: 1;
         .icon {
           @include flex($justify: flex-start);
           width: 0.9rem;
@@ -194,6 +196,7 @@
       }
       &.active {
         display: block;
+        cursor: pointer;
       }
     }
   }
