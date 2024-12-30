@@ -18,7 +18,8 @@ const CreatePostComponent = ({ fetchPosts }) => {
   const handleFile = () => {
     ref.current.click();
   };
-  const handleUploads = async () => {
+
+  const handleUploads = useCallback(async () => {
     const formData = new FormData();
     formData.append("img", file);
     if (!file) return;
@@ -28,7 +29,7 @@ const CreatePostComponent = ({ fetchPosts }) => {
     } catch (e) {
       console.log("e", e);
     }
-  };
+  }, [file]);
 
   const handlePost = async () => {
     const imgUrl = await handleUploads();

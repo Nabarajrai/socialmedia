@@ -26,4 +26,5 @@ export const APIS = {
   getSuggestions: "/api/suggestions",
   deletePost: "/api/deletePosts",
   deleteFiles: "/api/deleteFile",
+  updateUser: "/api/updateUserDetails",
 };

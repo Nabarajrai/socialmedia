@@ -35,7 +35,7 @@ const ProfilePage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [modalAvator, setModalAvator] = useState(null);
   const [modalCover, setModalCover] = useState(null);
-  const [name, setName] = useState("Nabaraj Rai");
+  const [name, setName] = useState("");
   const navigate = useNavigate();
   const coverRef = useRef(null);
   const avatorRef = useRef(null);
@@ -176,6 +176,62 @@ const ProfilePage = () => {
     }
   }, [userId]);
 
+  const handleUploadsAvator = useCallback(async () => {
+    const formdata = new FormData();
+    formdata.append("img", modalAvator);
+    if (!modalAvator) return;
+    try {
+      const res = await api(APIS.upload, "POST", formdata, { file: true });
+      return res.data;
+    } catch (e) {
+      console.log("e", e);
+    }
+  }, [modalAvator]);
+
+  const handleRemoveAvator = useCallback(
+    async (fileName) => {
+      const body = {
+        filePath: fileName,
+      };
+      if (!fileName) return;
+      try {
+        const res = await api(APIS.deleteFiles, "DELETE", body);
+        console.log("res", res);
+      } catch (e) {
+        console.log("e", e);
+      }
+    },
+    [modalAvator]
+  );
+
+  const handleUploadsCover = useCallback(async () => {
+    const formdata = new FormData();
+    formdata.append("img", modalCover);
+    if (!modalCover) return;
+    try {
+      const res = await api(APIS.upload, "POST", formdata, { file: true });
+      return res.data;
+    } catch (e) {
+      console.log("e", e);
+    }
+  }, [modalCover]);
+
+  const handleRemoveCover = useCallback(
+    async (fileName) => {
+      const body = {
+        filePath: fileName,
+      };
+      if (!fileName) return;
+      try {
+        const res = await api(APIS.deleteFiles, "DELETE", body);
+        console.log("res", res);
+      } catch (e) {
+        console.log("e", e);
+      }
+    },
+    [modalAvator]
+  );
+
   const handleActive = useCallback(() => {
     setActive(!active);
   }, [active]);
@@ -200,15 +256,39 @@ const ProfilePage = () => {
     setName(e.target.value);
   }, []);
 
-  const handleSubmitUserDetails = useCallback(() => {
-    const updatedDetails = {
-      profilePic: modalAvator,
-      coverPic: modalCover,
-      name: name,
+  const handleSubmitUserDetails = useCallback(async () => {
+    const avatorLink = await handleUploadsAvator();
+    const coverpicLink = await handleUploadsCover();
+    const body = {
+      username: name,
+      coverpic: coverpicLink ?? userProfiles?.coverpic,
+      profilePic: avatorLink ?? userProfiles?.profilePic,
     };
-    console.log("updatedDetails", updatedDetails);
-    handleModalCloseButton();
-  }, []);
+    try {
+      const res = await api(APIS.updateUser, "PUT", body);
+      if (res.status === 200) {
+        getUserDetials();
+        getUserPosts();
+        getRelationshipsData();
+        handleModalCloseButton();
+        setModalAvator(null);
+        setModalCover(null);
+        console.log("res", res);
+      } else {
+        if (!avatorLink) return;
+        await handleRemoveAvator(avatorLink?.split("/").pop());
+        if (!coverpicLink) return;
+        await handleRemoveCover(coverpicLink?.split("/").pop());
+        console.log("res", res);
+      }
+    } catch (e) {
+      if (!avatorLink) return;
+      await handleRemoveAvator(avatorLink?.split("/").pop());
+      if (!coverpicLink) return;
+      await handleRemoveCover(coverpicLink?.split("/").pop());
+      console.log("e", e);
+    }
+  }, [userProfiles, name, modalAvator, modalCover]);
 
   const handleDeleteAvator = useCallback(() => {
     setModalAvator(null);
@@ -236,6 +316,10 @@ const ProfilePage = () => {
     getRelationshipsData();
   }, [currentUser]);
 
+  useEffect(() => {
+    setName(userProfiles?.username);
+  }, [userProfiles.username]);
+
   return (
     <>
       <ModalComponent active={openModal} setActive={setOpenModal}>
@@ -254,11 +338,13 @@ const ProfilePage = () => {
                   </div>
                 </div>
               ) : (
-                <img
-                  src="https://images.pexels.com/photos/12079147/pexels-photo-12079147.jpeg"
-                  alt="profile"
-                  onClick={handleFileClick}
-                />
+                userProfiles?.profilePic && (
+                  <img
+                    src={userProfiles?.profilePic}
+                    alt="profile"
+                    onClick={handleFileClick}
+                  />
+                )
               )}
 
               <div className="edit-profile-avator__img--input">
@@ -284,11 +370,13 @@ const ProfilePage = () => {
                   </div>
                 </div>
               ) : (
-                <img
-                  src="https://images.pexels.com/photos/29239767/pexels-photo-29239767/free-photo-of-serene-autumn-avenue-with-vibrant-foliage.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="cover picture"
-                  onClick={handleClickModalCover}
-                />
+                userProfiles?.coverpic && (
+                  <img
+                    src={userProfiles?.coverpic}
+                    alt="cover picture"
+                    onClick={handleClickModalCover}
+                  />
+                )
               )}
 
               <input
@@ -302,7 +390,11 @@ const ProfilePage = () => {
           <div className="edit-profile-name">
             <div className="edit-profile-name__title">User Name</div>
             <div className="edit-profile-name__input">
-              <input type="text" value={name} onChange={handleChangeName} />
+              <input
+                type="text"
+                value={name ?? ""}
+                onChange={handleChangeName}
+              />
             </div>
           </div>
           <div className="edit-profile-action">
