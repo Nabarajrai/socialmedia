@@ -35,17 +35,25 @@ const ProfilePage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [modalAvator, setModalAvator] = useState(null);
   const [modalCover, setModalCover] = useState(null);
+  const [openAvatorEditModal, setOpenAvatorEditModal] = useState(false);
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const coverRef = useRef(null);
-  const avatorRef = useRef(null);
   const refProfilePic = useRef(null);
   const avatorParentRef = useRef(null);
   const refCoverPic = useRef(null);
   const refModalProfile = useRef(null);
+  const refAvatorEdit = useRef(null);
   const [posts, setPosts] = useState([]);
   const { currentUser } = useContext(AllDataContext);
   const location = useLocation();
+  const currentUserCover = useMemo(() => {
+    return currentUser?.data?.coverpic?.split("/").pop();
+  }, [currentUser?.data?.coverpic]);
+
+  const currentuserAvator = useMemo(() => {
+    return currentUser?.data?.profilePic?.split("/").pop();
+  }, []);
 
   const userId = useMemo(() => {
     return location.pathname.split(".").splice(2, 1).join("");
@@ -63,10 +71,6 @@ const ProfilePage = () => {
     setCoverFile(e.target.files[0]);
   }, []);
 
-  const handleAvator = useCallback((e) => {
-    setAvatorFile(e.target.files[0]);
-  }, []);
-
   const handleCover = useCallback(() => {
     coverRef.current.click();
   }, [coverRef]);
@@ -76,8 +80,8 @@ const ProfilePage = () => {
   }, [active]);
 
   const handleAvatorFile = useCallback(() => {
-    avatorRef.current.click();
-  }, []);
+    setOpenAvatorEditModal(!openAvatorEditModal);
+  }, [openAvatorEditModal]);
 
   const handleCloseOutsideAvator = useCallback(
     (event) => {
@@ -193,6 +197,7 @@ const ProfilePage = () => {
       const body = {
         filePath: fileName,
       };
+      console.log("body", body);
       if (!fileName) return;
       try {
         const res = await api(APIS.deleteFiles, "DELETE", body);
@@ -204,17 +209,20 @@ const ProfilePage = () => {
     [modalAvator]
   );
 
-  const handleUploadsCover = useCallback(async () => {
-    const formdata = new FormData();
-    formdata.append("img", modalCover);
-    if (!modalCover) return;
-    try {
-      const res = await api(APIS.upload, "POST", formdata, { file: true });
-      return res.data;
-    } catch (e) {
-      console.log("e", e);
-    }
-  }, [modalCover]);
+  const handleUploadsCover = useCallback(
+    async (data) => {
+      const formdata = new FormData();
+      formdata.append("img", data);
+      if (!data) return;
+      try {
+        const res = await api(APIS.upload, "POST", formdata, { file: true });
+        return res.data;
+      } catch (e) {
+        console.log("e", e);
+      }
+    },
+    [modalCover]
+  );
 
   const handleRemoveCover = useCallback(
     async (fileName) => {
@@ -258,7 +266,7 @@ const ProfilePage = () => {
 
   const handleSubmitUserDetails = useCallback(async () => {
     const avatorLink = await handleUploadsAvator();
-    const coverpicLink = await handleUploadsCover();
+    const coverpicLink = await handleUploadsCover(modalCover);
     const body = {
       username: name,
       coverpic: coverpicLink ?? userProfiles?.coverpic,
@@ -298,6 +306,72 @@ const ProfilePage = () => {
     setModalCover(null);
   }, []);
 
+  const handleCloseAvatorModalEdit = useCallback(() => {
+    setOpenAvatorEditModal(false);
+  }, []);
+
+  const handleSubmitUserCover = useCallback(
+    async (userId) => {
+      const coverpicLink = await handleUploadsCover(coverFile);
+      const body = {
+        coverpic: coverpicLink,
+      };
+      if (!coverFile) return;
+      try {
+        const res = await api(`${APIS.updateCover}/${userId}`, "PATCH", body);
+        if (res.status === 200) {
+          await handleRemoveCover(currentUserCover);
+          setCoverFile(null);
+          getUserDetials();
+          console.log("res", res);
+        } else {
+          await handleRemoveCover(coverpicLink?.split("/").pop());
+          console.log("res", res);
+        }
+      } catch (e) {
+        await handleRemoveCover(coverpicLink?.split("/").pop());
+        console.log("e", e);
+      }
+    },
+    [coverFile, currentUserCover, handleUploadsCover]
+  );
+
+  const handleSubmitEditAvator = useCallback(async () => {
+    const avatorLink = await handleUploadsCover(avatorFile);
+    const body = {
+      profilePic: avatorLink,
+    };
+    if (!avatorFile) return;
+    try {
+      const res = await api(`${APIS.updateCover}/${userId}`, "PATCH", body);
+      if (res.status === 200) {
+        await handleRemoveAvator(currentuserAvator);
+        setCoverFile(null);
+        getUserDetials();
+        setOpenAvatorEditModal(false);
+        console.log("res", res);
+      } else {
+        await handleRemoveAvator(currentuserAvator);
+        console.log("res", res);
+      }
+    } catch (e) {
+      await handleRemoveAvator(currentuserAvator);
+      console.log("e", e);
+    }
+  }, [avatorFile, userId, currentUserCover, handleUploadsCover]);
+
+  const handleAvatorChangeFile = useCallback((event) => {
+    setAvatorFile(event.target.files[0]);
+  }, []);
+
+  const handleAvatorEdit = useCallback(() => {
+    refAvatorEdit.current.click();
+  }, []);
+
+  const handleDeleteEditAvator = useCallback(() => {
+    setAvatorFile(null);
+  }, []);
+
   useEffect(() => {
     if (active) {
       document.addEventListener("mousedown", handleCloseOutsideAvator);
@@ -328,6 +402,59 @@ const ProfilePage = () => {
 
   return (
     <>
+      <ModalComponent
+        active={openAvatorEditModal}
+        setActive={setOpenAvatorEditModal}>
+        <div className="avator-edit">
+          <div className="avator-edit__title">Avator</div>
+          <div className="avator-edit__img">
+            {avatorFile ? (
+              <div className="avator-edit__img--avator">
+                <img
+                  src={URL.createObjectURL(avatorFile)}
+                  onClick={handleAvatorEdit}
+                />
+                <div className="icon" onClick={handleDeleteEditAvator}>
+                  <MdDelete />
+                </div>
+              </div>
+            ) : (
+              userProfiles?.profilePic && (
+                <img
+                  src={userProfiles?.profilePic}
+                  alt="profile"
+                  onClick={handleAvatorEdit}
+                />
+              )
+            )}
+          </div>
+          <div className="avator-edit__file">
+            <input
+              type="file"
+              onChange={handleAvatorChangeFile}
+              ref={refAvatorEdit}
+            />
+          </div>
+          <div className="avator-edit-action">
+            <div className="avator-edit-action__cancel">
+              <ButtonComponent
+                size="sm"
+                varient="danger"
+                onClick={handleCloseAvatorModalEdit}>
+                Cancel
+              </ButtonComponent>
+            </div>
+            <div className="avator-edit-action__submit">
+              <ButtonComponent
+                size="sm"
+                varient="primary"
+                onClick={handleSubmitEditAvator}>
+                Submit
+              </ButtonComponent>
+            </div>
+          </div>
+        </div>
+      </ModalComponent>
       <ModalComponent active={openModal} setActive={setOpenModal}>
         <div className="edit-profile-container">
           <div className="edit-profile-avator">
@@ -431,7 +558,23 @@ const ProfilePage = () => {
             <div className="page-avator">
               <div className="cover-section">
                 <div className="cover">
-                  <img src={userProfiles.coverpic} alt="img" />
+                  {coverFile ? (
+                    <>
+                      <img src={URL.createObjectURL(coverFile)} alt="img" />
+                      <div className="cover-save">
+                        <ButtonComponent
+                          size="sm"
+                          varient="primary"
+                          onClick={() =>
+                            handleSubmitUserCover(currentUser?.data?.id)
+                          }>
+                          Save
+                        </ButtonComponent>
+                      </div>
+                    </>
+                  ) : (
+                    <img src={userProfiles?.coverpic} alt="img" />
+                  )}
                 </div>
                 <div className="action">
                   <ButtonComponent
@@ -489,13 +632,6 @@ const ProfilePage = () => {
                         <FaCamera />
                       </div>
                       <div className="choose-title">Choose profile picture</div>
-                    </div>
-                    <div className="choose-bottom">
-                      <input
-                        type="file"
-                        ref={avatorRef}
-                        onChange={handleAvator}
-                      />
                     </div>
                   </div>
                 </div>
@@ -578,9 +714,12 @@ const ProfilePage = () => {
                 </div>
               </div>
               <div className="right-content">
-                <div className="create-post">
-                  <CreatePostComponent setPosts={setPosts} posts={posts} />
-                </div>
+                {currentUser?.data?.id === userProfiles?.id && (
+                  <div className="create-post">
+                    <CreatePostComponent setPosts={setPosts} posts={posts} />
+                  </div>
+                )}
+
                 <div className="posts">
                   {userPosts.map((data) => (
                     <PostsComponent data={data} key={data.id} />

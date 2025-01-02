@@ -10,6 +10,7 @@
   .cover-section {
     position: relative;
     .cover {
+      position: relative;
       width: 100%;
       height: 400px;
       background: linear-gradient(#f5f0f0, #313133);
@@ -19,6 +20,18 @@
         @include image();
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
+      }
+      .cover-save {
+        @include flex($justify: flex-end);
+        position: absolute;
+        top: 0;
+        background-color: rgba($pri, 0.5);
+        padding: 0.1rem;
+        padding-right: 2rem;
+        width: 100%;
+        .btn-sm {
+          width: 15%;
+        }
       }
     }
     .action {
@@ -370,5 +383,67 @@
     &__submit {
       width: 30%;
     }
+  }
+}
+.avator-edit {
+  @include flex($justify: center);
+  flex-direction: column;
+  padding: 0.8rem;
+  &__title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+  &__img {
+    height: 150px;
+    width: 150px;
+    cursor: pointer;
+    &--avator {
+      position: relative;
+      height: 150px;
+      width: 150px;
+      img {
+        @include image();
+        border-radius: 50%;
+      }
+      .icon {
+        @include flex($justify: center);
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        height: 35px;
+        width: 35px;
+        background-color: rgba($red, 0.5);
+        border-radius: 50%;
+        padding: 0.1rem;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          background-color: rgba($red, 0.2);
+        }
+        svg {
+          fill: $red;
+          font-size: 1rem;
+        }
+      }
+    }
+    img {
+      @include image();
+      border-radius: 50%;
+    }
+  }
+  .avator-edit-action {
+    @include flex($justify: space-between);
+    width: 100%;
+    padding: 0 0.8rem;
+    &__cancel {
+      width: 30%;
+    }
+    &__submit {
+      width: 30%;
+    }
+  }
+  &__file {
+    display: none;
   }
 }

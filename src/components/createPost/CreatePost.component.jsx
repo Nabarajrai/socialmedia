@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useContext, useMemo } from "react";
 import logo from "../../assets/avator.jpeg";
 import vedio from "../../assets/video.png";
 import picture from "../../assets/picture.png";
@@ -9,12 +9,20 @@ import { useState } from "react";
 import { MdOutlineDelete } from "react-icons/md";
 import ButtonComponent from "../button/Button.component";
 import { api, APIS } from "../../config/Api.config";
+import { AllDataContext } from "../../context";
 
 const CreatePostComponent = ({ fetchPosts }) => {
   const [file, setFile] = useState(null);
   const [popup, setPopup] = useState(false);
   const [des, setDes] = useState("");
   const ref = useRef(null);
+
+  const { currentUser } = useContext(AllDataContext);
+
+  const userAvator = useMemo(() => {
+    return currentUser?.data?.profilePic;
+  }, [currentUser]);
+
   const handleFile = () => {
     ref.current.click();
   };
@@ -127,7 +135,7 @@ const CreatePostComponent = ({ fetchPosts }) => {
       <div className="newPost-container">
         <div className="newpost-top">
           <div className="newpost-img">
-            <img src={logo} alt="logo" />
+            <img src={userAvator} alt="logo" />
           </div>
           <div className="newpost-input " onClick={() => setPopup(true)}>
             <div className="newpost-input__container">

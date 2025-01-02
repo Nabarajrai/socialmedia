@@ -27,4 +27,5 @@ export const APIS = {
   deletePost: "/api/deletePosts",
   deleteFiles: "/api/deleteFile",
   updateUser: "/api/updateUserDetails",
+  updateCover: "/api/updateUserDetailAvatorCover",
 };
