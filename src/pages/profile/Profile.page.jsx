@@ -28,6 +28,8 @@ const ProfilePage = () => {
   const [coverFile, setCoverFile] = useState(null);
   const [avatorFile, setAvatorFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [postsLoading, setPostsLoading] = useState(false);
+  const [relationshipsLoading, setRelationshipsLoading] = useState(false);
   const [relationship, setRelationship] = useState(null);
   const [active, setActive] = useState(false);
   const [userProfiles, setUserProfiles] = useState([]);
@@ -119,6 +121,7 @@ const ProfilePage = () => {
   }, [userId]);
 
   const getRelationshipsData = useCallback(async () => {
+    setRelationshipsLoading(true);
     try {
       const res = await api(
         `${APIS.getRelationship}?followerId=${currentUser?.data?.id}`
@@ -130,6 +133,8 @@ const ProfilePage = () => {
       }
     } catch (e) {
       console.log("e", e);
+    } finally {
+      setRelationshipsLoading(false);
     }
   }, [currentUser]);
 
@@ -168,6 +173,7 @@ const ProfilePage = () => {
   }, []);
 
   const getUserPosts = useCallback(async () => {
+    setPostsLoading(true);
     try {
       const res = await api(`${APIS.getUserPosts}/${userId}`);
       if (res.status === 200) {
@@ -177,6 +183,8 @@ const ProfilePage = () => {
       }
     } catch (e) {
       console.log("e", e);
+    } finally {
+      setPostsLoading(false);
     }
   }, [userId]);
 
@@ -382,12 +390,16 @@ const ProfilePage = () => {
   }, [active, handleCloseOutsideAvator]);
 
   useEffect(() => {
-    getUserDetials();
-    getUserPosts();
+    if (userId) {
+      getUserDetials();
+      getUserPosts();
+    }
   }, [userId]);
 
   useEffect(() => {
-    getRelationshipsData();
+    if (currentUser) {
+      getRelationshipsData();
+    }
   }, [currentUser]);
 
   useEffect(() => {
@@ -399,6 +411,8 @@ const ProfilePage = () => {
       setActive(false);
     }
   }, [avatorFile]);
+
+  console.log("I am User Profile Page");
 
   return (
     <>
@@ -551,7 +565,7 @@ const ProfilePage = () => {
         </div>
       </ModalComponent>
       <div className="profile-page">
-        {loading ? (
+        {loading || postsLoading || relationshipsLoading ? (
           <Spinner />
         ) : (
           <LayoutComponent>

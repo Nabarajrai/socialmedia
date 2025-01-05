@@ -1,4 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
+import { memo } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 const ModalComponent = ({ active, setActive, children }) => {
@@ -15,4 +17,4 @@ const ModalComponent = ({ active, setActive, children }) => {
   );
 };
 
-export default ModalComponent;
+export default memo(ModalComponent);

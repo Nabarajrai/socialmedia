@@ -1,5 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { useCallback, useRef, useContext, useMemo } from "react";
+import { useCallback, useRef, useContext, useMemo, memo } from "react";
 import logo from "../../assets/avator.jpeg";
 import vedio from "../../assets/video.png";
 import picture from "../../assets/picture.png";
@@ -170,4 +171,4 @@ const CreatePostComponent = ({ fetchPosts }) => {
   );
 };
 
-export default CreatePostComponent;
+export default memo(CreatePostComponent);

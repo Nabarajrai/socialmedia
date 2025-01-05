@@ -1,5 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import classnames from "classnames";
+import { memo } from "react";
 const ButtonComponent = ({
   file,
   des,
@@ -23,4 +25,4 @@ const ButtonComponent = ({
   );
 };
 
-export default ButtonComponent;
+export default memo(ButtonComponent);
