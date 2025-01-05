@@ -1,6 +1,8 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { CiSearch } from "react-icons/ci";
+import { memo } from "react";
 
 const CustomInputComponent = ({
   title,
@@ -33,4 +35,4 @@ const CustomInputComponent = ({
   );
 };
 
-export default CustomInputComponent;
+export default memo(CustomInputComponent);

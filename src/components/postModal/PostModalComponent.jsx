@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { MdOutlineClose } from "react-icons/md";
-
+import { memo } from "react";
 const PostModalComponent = ({ active, setActive, children }) => {
   return (
     <div className={`post-modal-wrapper ${active ? "active" : ""}`}>
@@ -22,4 +23,4 @@ const PostModalComponent = ({ active, setActive, children }) => {
   );
 };
 
-export default PostModalComponent;
+export default memo(PostModalComponent);

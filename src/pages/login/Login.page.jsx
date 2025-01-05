@@ -4,7 +4,6 @@ import ButtonComponent from "../../components/button/Button.component";
 import { useCallback, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Uncomment useNavigate
 import { AllDataContext } from "../../context";
-import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [error, setError] = useState("");
@@ -12,10 +11,9 @@ const LoginPage = () => {
     username: "",
     password: "",
   });
-  const { login, currentUser } = useContext(AllDataContext);
+  const { login } = useContext(AllDataContext);
 
   const navigate = useNavigate(); // Use navigate for redirect
-  const notify = (success) => toast(success);
 
   const handleChange = useCallback(
     (e) => {
@@ -38,7 +36,6 @@ const LoginPage = () => {
       try {
         const res = await login(body);
         if (res?.status === 200) {
-          notify(res?.data?.message);
           navigate("/"); // Navigate to home page after successful login
         }
       } catch (e) {
@@ -51,6 +48,9 @@ const LoginPage = () => {
   const handleOnFocus = useCallback(() => {
     setError("");
   }, []);
+
+  console.log("I am login page!");
+
   return (
     <div className="login-wrapper">
       <div className="login">

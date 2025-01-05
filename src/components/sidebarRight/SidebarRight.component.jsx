@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { useCallback, useContext, useEffect, useState } from "react";
 import { AllDataContext } from "../../context";
-import { useLocation } from "react-router-dom";
 import { api, APIS } from "../../config/Api.config";
 import ButtonComponent from "../button/Button.component";
 import { SlUserFollow } from "react-icons/sl";
+import { memo } from "react";
 
 const SidebarRightomponent = () => {
   const { currentUser } = useContext(AllDataContext);
   const [suggestionFriends, setSuggestionFriends] = useState([]);
   const [relationship, setRelationship] = useState(null);
-  const location = useLocation();
 
-  const getSuggestionsFriends = async () => {
+  const getSuggestionsFriends = useCallback(async () => {
     try {
       const res = await api(APIS.getSuggestions, "GET");
       if (res.status === 200) {
@@ -22,9 +22,9 @@ const SidebarRightomponent = () => {
     } catch (e) {
       console.log("e", e);
     }
-  };
+  }, []);
 
-  const getRelationshipsData = async (userId) => {
+  const getRelationshipsData = useCallback(async (userId) => {
     try {
       const res = await api(`${APIS.getRelationship}?followerId=${userId}`);
       if (res.status === 200) {
@@ -35,47 +35,54 @@ const SidebarRightomponent = () => {
     } catch (e) {
       console.log("e", e);
     }
-  };
+  }, []);
 
-  const addRelationships = async (userId) => {
-    try {
-      const res = await api(
-        `${APIS.addRelationship}?followedId=${userId}`,
-        "POST"
-      );
-      if (res.status === 200) {
-        console.log("res", res);
-        getRelationshipsData(currentUser?.data?.id);
-      } else {
-        console.log("res", res);
+  const addRelationships = useCallback(
+    async (userId) => {
+      try {
+        const res = await api(
+          `${APIS.addRelationship}?followedId=${userId}`,
+          "POST"
+        );
+        if (res.status === 200) {
+          console.log("res", res);
+          getRelationshipsData(currentUser?.data?.id);
+        } else {
+          console.log("res", res);
+        }
+      } catch (e) {
+        console.log("e", e);
       }
-    } catch (e) {
-      console.log("e", e);
-    }
-  };
+    },
+    [currentUser?.data?.id, getRelationshipsData]
+  );
 
-  const removeRelationships = async (userId) => {
-    try {
-      const res = await api(
-        `${APIS.deleteRelationship}?followedId=${userId}`,
-        "DELETE"
-      );
-      if (res.status === 200) {
-        getRelationshipsData(currentUser?.data?.id);
-        console.log("res", res);
-      } else {
-        console.log("res", res);
+  const removeRelationships = useCallback(
+    async (userId) => {
+      try {
+        const res = await api(
+          `${APIS.deleteRelationship}?followedId=${userId}`,
+          "DELETE"
+        );
+        if (res.status === 200) {
+          getRelationshipsData(currentUser?.data?.id);
+          console.log("res", res);
+        } else {
+          console.log("res", res);
+        }
+      } catch (e) {
+        console.log("e", e);
       }
-    } catch (e) {
-      console.log("e", e);
-    }
-  };
+    },
+    [currentUser?.data?.id, getRelationshipsData]
+  );
 
   useEffect(() => {
     getSuggestionsFriends();
     getRelationshipsData(currentUser?.data?.id);
-  }, [currentUser]);
+  }, [currentUser, getSuggestionsFriends, getRelationshipsData]);
 
+  console.log("getSuggestionsFriends");
   return (
     <div className="right-sidebar-container">
       <div className="right-section-suggestion">
@@ -183,4 +190,4 @@ const SidebarRightomponent = () => {
   );
 };
 
-export default SidebarRightomponent;
+export default memo(SidebarRightomponent);

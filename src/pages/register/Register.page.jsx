@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import ButtonComponent from "../../components/button/Button.component";
 import CustomInputComponent from "../../components/input/CustomInput.component";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { api, APIS } from "../../config/Api.config";
-import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [formValues, setFormValues] = useState({
@@ -13,10 +12,8 @@ const RegisterPage = () => {
     confirmPassword: "",
   });
   const [errMsg, setErrMsg] = useState("");
-  const [data, setData] = useState("");
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const notify = (success) => toast(success);
 
   const handleChange = useCallback(
     (e) => {
@@ -41,8 +38,6 @@ const RegisterPage = () => {
       try {
         const res = await api(APIS.register, "POST", body);
         if (res?.status === 200) {
-          setData(res?.data?.message);
-          notify(res?.data?.message);
           navigate("/login");
         }
       } catch (e) {
@@ -62,9 +57,12 @@ const RegisterPage = () => {
   setTimeout(() => {
     setShow(false);
   }, 500);
+
   const focusInput = useCallback(() => {
     setErrMsg("");
   }, []);
+
+  console.log("I am registered page !");
 
   return (
     <div className="register-page">
