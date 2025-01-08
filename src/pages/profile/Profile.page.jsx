@@ -1,12 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import LayoutComponent from "../../layout/Layout.component";
-import logo from "../../assets/1.png";
-import ButtonComponent from "../../components/button/Button.component";
-import { FaCamera, FaPlus } from "react-icons/fa";
-import { MdEdit } from "react-icons/md";
-import { FiMessageCircle } from "react-icons/fi";
-import { SlUserFollow } from "react-icons/sl";
-import { useNavigate, useLocation } from "react-router-dom";
+//core library
 import {
   useState,
   useCallback,
@@ -15,14 +8,26 @@ import {
   useContext,
   useEffect,
 } from "react";
+//third party libraries
 import classnames from "classnames";
-import CreatePostComponent from "../../components/createPost/CreatePost.component";
-import PostsComponent from "../../components/posts/Posts.component";
-import { AllDataContext } from "../../context";
-import { api, APIS } from "../../config/Api.config";
+import { FaCamera, FaPlus } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+import { FiMessageCircle } from "react-icons/fi";
+import { SlUserFollow } from "react-icons/sl";
+import { useNavigate, useLocation } from "react-router-dom";
+//assets library
+import logo from "../../assets/1.png";
+//components
 import Spinner from "../../components/spinner/Spinner";
 import ModalComponent from "../../components/modal/Modal.component";
 import { MdDelete } from "react-icons/md";
+import LayoutComponent from "../../layout/Layout.component";
+import ButtonComponent from "../../components/button/Button.component";
+import CreatePostComponent from "../../components/createPost/CreatePost.component";
+import PostsComponent from "../../components/posts/Posts.component";
+//helpers
+import { AllDataContext } from "../../context";
+import { api, APIS } from "../../config/Api.config";
 
 const ProfilePage = () => {
   const [coverFile, setCoverFile] = useState(null);
@@ -49,6 +54,7 @@ const ProfilePage = () => {
   const [posts, setPosts] = useState([]);
   const { currentUser } = useContext(AllDataContext);
   const location = useLocation();
+
   const currentUserCover = useMemo(() => {
     return currentUser?.data?.coverpic?.split("/").pop();
   }, [currentUser?.data?.coverpic]);

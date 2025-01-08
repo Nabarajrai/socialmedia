@@ -7,10 +7,10 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <React.StrictMode>
+    <>
       <RouterProvider router={routes} />
       <ToastContainer />
-    </React.StrictMode>
+    </>
   );
 }
 

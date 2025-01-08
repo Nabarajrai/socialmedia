@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+import { memo } from "react";
 import logo from "../../assets/logo.jpg";
 import friends from "../../assets/friendship.png";
 import groups from "../../assets/diversity.png";
@@ -122,4 +124,4 @@ const SideNavbar = () => {
   );
 };
 
-export default SideNavbar;
+export default memo(SideNavbar);

@@ -36,6 +36,7 @@ const PostsComponent = ({ data }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const toggleClassName = visible ? "block" : "none";
+
   const combineClassName = useMemo(() => {
     return classnames("post-header-action__app--modal", toggleClassName);
   }, [toggleClassName]);
@@ -203,6 +204,7 @@ const PostsComponent = ({ data }) => {
       document.removeEventListener("mousedown", handleCloseOutside);
     };
   }, [handleCloseOutside]);
+
   return (
     <>
       <PostModalComponent active={popup} setActive={setPopup}>

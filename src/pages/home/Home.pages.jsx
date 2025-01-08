@@ -1,35 +1,24 @@
+// components
 import LayoutComponent from "../../layout/Layout.component";
 import SideNavbar from "../../components/sidenavbar/SideNavbar";
 import SidebarRightomponent from "../../components/sidebarRight/SidebarRight.component";
 import StoryComponent from "../../components/story/Story.component";
 import CreatePostComponent from "../../components/createPost/CreatePost.component";
 import PostsComponent from "../../components/posts/Posts.component";
-import { useCallback, useEffect, useState } from "react";
-import { api, APIS } from "../../config/Api.config";
-
-const datas = [];
+import Spinner from "../../components/spinner/Spinner";
+//hooks
+import { usePosts } from "../../hooks/usePosts";
 const HomePage = () => {
-  const [posts, setPosts] = useState(datas);
-  // console.log("posts: ", posts);
-  // const sortPosts = [...posts].sort(
-  //   (a, b) => new Date(a.time) - new Date(b.time)
-  // );
-  // const mostRecentPosts = sortPosts[0];
-  const fetchPosts = useCallback(async () => {
-    try {
-      const res = await api(APIS.posts);
-      if (res.status === 200) {
-        setPosts(res?.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+  const { isLoading, error, data } = usePosts();
 
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+  if (isLoading) {
+    return <Spinner />;
+  }
 
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  console.log("HomePage");
   return (
     <div className="home-page-setion">
       <LayoutComponent>
@@ -42,18 +31,13 @@ const HomePage = () => {
               <StoryComponent />
             </div>
             <div className="main-content__newPost">
-              <CreatePostComponent
-                setPosts={setPosts}
-                posts={posts}
-                fetchPosts={fetchPosts}
-              />
+              <CreatePostComponent />
             </div>
             <div className="main-content__post">
-              {posts.map((data) => (
+              {data?.map((data) => (
                 <PostsComponent data={data} key={data.id} />
               ))}
             </div>
-            <div className="main-content__loadmore">Loading...</div>
           </div>
           <div className="sidebar-right">
             <SidebarRightomponent />

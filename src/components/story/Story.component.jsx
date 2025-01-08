@@ -1,4 +1,12 @@
-import { useRef, useEffect, useState, useCallback, useContext } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+  memo,
+} from "react";
 import avator from "../../assets/avator.jpeg";
 import { FaPlus } from "react-icons/fa6";
 import profile from "../../assets/1.png";
@@ -146,4 +154,4 @@ const StoryComponent = () => {
   );
 };
 
-export default StoryComponent;
+export default memo(StoryComponent);
